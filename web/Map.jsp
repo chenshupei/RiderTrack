@@ -30,7 +30,6 @@
     map.centerAndZoom(point, 12);
     var x = 116.331398;
     var y = 39.897445;
-    var i = 1;
 
     var geolocation = new BMap.Geolocation();
     window.setInterval(location1, 5000);
@@ -142,8 +141,7 @@
             else {
                 alert('failed' + this.getStatus());
             }
-            var xmlHttpRequest = null;
-        }, {enableHighAccuracy: true})
+        }, {enableHighAccuracy: true});
         console.log(x + "," + y + "");
     }
 </script>
