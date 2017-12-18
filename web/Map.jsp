@@ -16,6 +16,10 @@
     <title>浏览器定位</title>
 </head>
 <body>
+<div unselectable="on" class=" BMap_stdMpCtrl BMap_stdMpType0 BMap_noprint anchorTL"
+     style="width: 62px; height: 192px; bottom: auto; right: auto; top: 10px; left: 10px; position: absolute; z-index: 1100; text-size-adjust: none;">
+    <a type="button" class="btn btn-default" href="#" onClick="history.back(-1);"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Back</a>
+</div>
 <div id="allmap"></div>
 </body>
 </html>
