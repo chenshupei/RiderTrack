@@ -21,9 +21,15 @@ public class ShowDetailServlet extends HttpServlet {
         ActivityBean activityBean = null;
         String idString = request.getParameter("id");
         int id = Integer.parseInt(idString);
-        System.out.println(id);
+        request.setAttribute("activity_id", idString);
+        String username = (String) request.getSession().getAttribute("username");
+        boolean register = false;
         ActivityService activityService = new ActivityServiceImpl();
         activityBean = activityService.getActivity(id);
+        register = activityService.getRegisterState(username, id);
+
+        request.setAttribute("register", register);
+
         request.setAttribute("activity_detail_name", activityBean.getActivityName());
         request.setAttribute("activity_detail_location", activityBean.getLocation());
         request.setAttribute("activity_detail_start_date", activityBean.getStartDate());

@@ -13,16 +13,23 @@
 <script type="text/javascript">
     var xmlHttpRequest = null; //声明一个空的 xmlHttpRequest对象
 
-    function ajax() {
+    function ajax()
+    {
 
-        if (window.ActiveXObject) { //IE浏览器
+        if (window.ActiveXObject)
+        { //IE浏览器
+
             xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+
         }
-        else if (window.XMLHttpRequest) { //非IE浏览器
+        else if (window.XMLHttpRequest)
+        { //非IE浏览器
+
             xmlHttpRequest = new XMLHttpRequest;
         }
 
-        if (null != xmlHttpRequest) {
+        if (null != xmlHttpRequest)
+        {
 
             //获取HTML中的文本输入域值。
             var v1 = document.getElementById("value1").value;
@@ -47,11 +54,14 @@
     }
 
     //Ajax的回调函数
-    function ajaxCallBack() {
+    function ajaxCallBack()
+    {
 
-        if (xmlHttpRequest.readyState == 4) { //Ajax引擎4个阶段，4为最后一个阶段
+        if (xmlHttpRequest.readyState == 4)
+        { //Ajax引擎4个阶段，4为最后一个阶段
 
-            if (xmlHttpRequest.status == 200) {
+            if (xmlHttpRequest.status == 200)
+            {
 
                 //XMLHttpReques对象取得服务器相应信息(文本、XML)
                 var responseText = xmlHttpRequest.responseText;
@@ -61,25 +71,28 @@
 
                 //ajax解析json第一种方法
                 eval("var json=" + responseText);
-                document.getElementById("div").innerHTML = json.name + json.age;
+                document.getElementById("div").innerHTML = json.name;
 
                 //ajax解析json第二种方法
                 //var json =eval("[" + responseText + "]");
                 //document.getElementById("div").innerHTML = json[0].name;
             }
-            else {
+            else
+            {
+
                 document.getElementById("div").innerHTML = "服务器错误";
             }
+
         }
     }
 </script>
 <body>
 
-<input type="button" value="click here" onclick="ajax();"/>
+<input type="button" value="click here" onclick="ajax();" />
 <br>
 
-<input type="text" id="value1"/>
-<input type="text" id="value2"/>
+<input type="text" id="value1" />
+<input type="text" id="value2" />
 
 <div id="div"></div>
 </body>

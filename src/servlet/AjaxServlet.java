@@ -14,15 +14,16 @@ public class AjaxServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
 
-        PrintWriter out = response.getWriter();
+        System.out.println("ajax servlet");
+        //PrintWriter out = response.getWriter();
 
-        // out.print("Hello World");
 
         String value1 = request.getParameter("v1");
         String value2 = request.getParameter("v2");
-
-        out.print(value1 + value2);
-        out.flush();
+        System.out.println(value1);
+        System.out.println(value2);
+        //out.print(value1 + value2);
+        //out.flush();
     }
 
     protected void doPost(HttpServletRequest request,
@@ -32,11 +33,12 @@ public class AjaxServlet extends HttpServlet {
 
         String value1 = request.getParameter("v1");
         String value2 = request.getParameter("v2");
-
+        System.out.println(value1);
+        System.out.println(value2);
 //      out.print(value1 + value2);
         String json = "{" + '"' + "name" + '"' + ":" + '"' + value1 + '"' + "," + '"' + "age" + '"' + ":" + '"' + "20" + '"' + "}";
-        System.out.println(json);
         out.print(json);
         out.flush();
     }
+
 }

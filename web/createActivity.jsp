@@ -22,7 +22,7 @@
 </head>
 <body>
 <%
-    String username = (String)session.getAttribute("username");
+    String username = (String) session.getAttribute("username");
     String name = (String) session.getAttribute("name");
 %>
 <div class="container">
@@ -34,7 +34,7 @@
             <%
                 if (session.getAttribute("name") == null || session.getAttribute("name").equals("")) {
             %>
-            <a href="IconLoginServlet"  style="text-align:right">
+            <a href="IconLoginServlet" style="text-align:right">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 Log in
             </a>
@@ -69,10 +69,10 @@
     <div class="tab-pane" id="CreateActivity">
         <div class="panel panel-default">
             <div class="panel-heading">
-            <h3 class="panel-title">
-                New Activity
-            </h3>
-        </div>
+                <h3 class="panel-title">
+                    New Activity
+                </h3>
+            </div>
 
             <div class="panel-body">
                 <form class="form-activity" action="CreateActivityServlet" method="get">
@@ -81,9 +81,11 @@
                         <input type="text" class="form-control" id="ActivityName" name="activityName"
                                placeholder="give your activity a proper name">
                         <%
-                            if (request.getAttribute("msg_activityName") != null){
+                            if (request.getAttribute("msg_activityName") != null) {
                         %>
-                        <div class="alert alert-danger" role="alert"><%=request.getAttribute("msg_activityName") != null ? request.getAttribute("msg_activityName") : ""%></div>
+                        <div class="alert alert-danger"
+                             role="alert"><%=request.getAttribute("msg_activityName") != null ? request.getAttribute("msg_activityName") : ""%>
+                        </div>
                         <%
                             }
                         %>
@@ -95,9 +97,11 @@
                         <input type="text" class="form-control" id="ActivityLocation" name="location"
                                placeholder="where will your activity be held">
                         <%
-                            if (request.getAttribute("msg_location") != null){
+                            if (request.getAttribute("msg_location") != null) {
                         %>
-                        <div class="alert alert-danger" role="alert"><%=request.getAttribute("msg_location") != null ? request.getAttribute("msg_location") : ""%></div>
+                        <div class="alert alert-danger"
+                             role="alert"><%=request.getAttribute("msg_location") != null ? request.getAttribute("msg_location") : ""%>
+                        </div>
                         <%
                             }
                         %>
@@ -114,9 +118,11 @@
                         </div>
                         <input type="hidden" id="start_date" value="" name="startDate1"/><br/>
                         <%
-                            if (request.getAttribute("msg_startDate") != null){
+                            if (request.getAttribute("msg_startDate") != null) {
                         %>
-                        <div class="alert alert-danger" role="alert"><%=request.getAttribute("msg_startDate") != null ? request.getAttribute("msg_startDate") : ""%></div>
+                        <div class="alert alert-danger"
+                             role="alert"><%=request.getAttribute("msg_startDate") != null ? request.getAttribute("msg_startDate") : ""%>
+                        </div>
                         <%
                             }
                         %>
@@ -131,9 +137,11 @@
                         </div>
                         <input type="hidden" id="end_date" value="" name="endDate1"/><br/>
                         <%
-                            if (request.getAttribute("msg_endDate") != null){
+                            if (request.getAttribute("msg_endDate") != null) {
                         %>
-                        <div class="alert alert-danger" role="alert"><%=request.getAttribute("msg_endDate") != null ? request.getAttribute("msg_endDate") : ""%></div>
+                        <div class="alert alert-danger"
+                             role="alert"><%=request.getAttribute("msg_endDate") != null ? request.getAttribute("msg_endDate") : ""%>
+                        </div>
                         <%
                             }
                         %>
@@ -159,7 +167,9 @@
                     <%
                         if (request.getAttribute("msg_submit") != null) {
                     %>
-                    <div class="alert alert-danger" role="alert"><%=request.getAttribute("msg_submit") != null ? request.getAttribute("msg_submit") : ""%></div>
+                    <div class="alert alert-danger"
+                         role="alert"><%=request.getAttribute("msg_submit") != null ? request.getAttribute("msg_submit") : ""%>
+                    </div>
                     <%
                         }
                     %>
@@ -185,7 +195,7 @@
 
 <script type="text/javascript">
     $('.form_date').datetimepicker({
-        format:"yyyy-mm-dd",
+        format: "yyyy-mm-dd",
         weekStart: 1,
         todayBtn: 1,
         autoclose: 1,

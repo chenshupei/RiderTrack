@@ -10,4 +10,10 @@ public interface ActivityService {
     ActivityBean getActivity(int id);
 
     List<ActivityBean> fetchActivityList();
+
+    boolean getRegisterState(String username, int activityID);
+
+    int userJoinActivity(String username, int activityID);
+
+    int userDeregisterActivity(String username, int activityID);
 }
