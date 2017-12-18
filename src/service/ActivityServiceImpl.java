@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ActivityServiceImpl implements ActivityService {
 
-    ActivityDao activityDao = new ActivityDaoImpl();
+    private ActivityDao activityDao = new ActivityDaoImpl();
 
     @Override
     public int addActivity(ActivityBean activityBean){
@@ -42,4 +42,40 @@ public class ActivityServiceImpl implements ActivityService {
         }
         return activityList;
     }
+
+    @Override
+    public boolean getRegisterState(String username, int activityID) {
+        boolean state = false;
+        try {
+            state = activityDao.getRegisterState(username, activityID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return state;
+    }
+
+    @Override
+    public int userJoinActivity(String username, int activityID) {
+        int result = 0;
+        try {
+            result = activityDao.userJoinActivity(username, activityID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("service: " + result);
+        return result;
+    }
+
+    @Override
+    public int userDeregisterActivity(String username, int activityID) {
+        int result = 0;
+        try {
+            result = activityDao.userDeregisterActivity(username, activityID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 }

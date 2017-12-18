@@ -30,7 +30,6 @@ public class ActivityDaoImpl implements ActivityDao {
         preparedStatement.setString(6, activityBean.getType());
         preparedStatement.setString(7, activityBean.getSponsor());
 
-
         result = preparedStatement.executeUpdate();
         dbUtil.closeDBResource(connection, preparedStatement);
         return result;
@@ -84,5 +83,52 @@ public class ActivityDaoImpl implements ActivityDao {
         }
         dbUtil.closeDBResource(connection, preparedStatement, resultSet);
         return activityBeanList;
+    }
+
+    @Override
+    public boolean getRegisterState(String username, int activityID) throws Exception {
+        boolean state = false;
+        connection = dbUtil.getConnection();
+        String sql = "select * from user_in_activity where user_name = ? and activity_id = ? and credits = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setInt(2, activityID);
+        preparedStatement.setString(3, "P");
+        resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            state = true;
+        }
+        dbUtil.closeDBResource(connection, preparedStatement, resultSet);
+        return state;
+    }
+
+    @Override
+    public int userJoinActivity(String username, int activityID) throws Exception{
+        int result = 0;
+        connection = dbUtil.getConnection();
+        String sql = "insert into user_in_activity (user_name, activity_id, credits) values (?, ?, ?)";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setInt(2, activityID);
+        preparedStatement.setString(3, "P");
+
+        result = preparedStatement.executeUpdate();
+        dbUtil.closeDBResource(connection, preparedStatement);
+        System.out.println("dao: " + result);
+        return result;
+    }
+
+    @Override
+    public int userDeregisterActivity(String username, int activityID) throws Exception {
+        int result = 0;
+        connection = dbUtil.getConnection();
+        String sql = "delete from user_in_activity where user_name = ? and activity_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setInt(2, activityID);
+
+        result = preparedStatement.executeUpdate();
+        dbUtil.closeDBResource(connection, preparedStatement);
+        return result;
     }
 }

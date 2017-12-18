@@ -11,4 +11,10 @@ public interface ActivityDao {
     ActivityBean getActivity(int id) throws Exception;
 
     List<ActivityBean> fetchActivityList() throws Exception;
+
+    boolean getRegisterState(String username, int activityID) throws Exception;
+
+    int userJoinActivity(String username, int activityID) throws Exception;
+
+    int userDeregisterActivity(String username, int activityID) throws Exception;
 }

@@ -23,9 +23,11 @@
 <%
     String username = (String) session.getAttribute("username");
     String name = (String) session.getAttribute("name");
+    boolean register = (boolean) request.getAttribute("register");
+    String activityIdString = (String) request.getAttribute("activity_id");
+    int activityId = Integer.parseInt(activityIdString);
 %>
 <div class="container">
-
 
     <div class="row topdiv">
         <div class="col-md-8"><img src="img/RiderTrackBan.png" alt="Rider Track"/></div>
@@ -33,7 +35,7 @@
             <%
                 if (session.getAttribute("name") == null || session.getAttribute("name").equals("")) {
             %>
-            <a href="LoginServlet"  style="text-align:right">
+            <a href="LoginServlet" style="text-align:right">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 Log in
             </a>
@@ -73,7 +75,8 @@
             <div class="row details">
                 <div class="col-md-4">
                     <img class="img-rounded" src="img/RiderTrack.png"/>
-                    <h3><%=request.getAttribute("activity_detail_name") != null ? request.getAttribute("activity_detail_name") : "" %></h3> <!--该活动名称-->
+                    <h3><%=request.getAttribute("activity_detail_name") != null ? request.getAttribute("activity_detail_name") : "" %>
+                    </h3> <!--该活动名称-->
                 </div>
                 <div class="col-md-8">
                     <table class="table table-hover">
@@ -81,33 +84,49 @@
                         <tbody>
                         <tr>
                             <th scope="row">Location</th>
-                            <td><%=request.getAttribute("activity_detail_location") != null ? request.getAttribute("activity_detail_location") : "" %></td>
+                            <td><%=request.getAttribute("activity_detail_location") != null ? request.getAttribute("activity_detail_location") : "" %>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Start date</th>
-                            <td><%=request.getAttribute("activity_detail_start_date") != null ? request.getAttribute("activity_detail_start_date") : "" %></td>
+                            <td><%=request.getAttribute("activity_detail_start_date") != null ? request.getAttribute("activity_detail_start_date") : "" %>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">End date</th>
-                            <td><%=request.getAttribute("activity_detail_end_date") != null ? request.getAttribute("activity_detail_end_date") : "" %></td>
+                            <td><%=request.getAttribute("activity_detail_end_date") != null ? request.getAttribute("activity_detail_end_date") : "" %>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Activity description</th>
-                            <td><%=request.getAttribute("activity_detail_description") != null ? request.getAttribute("activity_detail_description") : "" %></td>
+                            <td><%=request.getAttribute("activity_detail_description") != null ? request.getAttribute("activity_detail_description") : "" %>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Type</th>
-                            <td><%=request.getAttribute("activity_detail_type") != null ? request.getAttribute("activity_detail_type") : "" %></td>
+                            <td><%=request.getAttribute("activity_detail_type") != null ? request.getAttribute("activity_detail_type") : "" %>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Sponsor</th>
-                            <td><%=request.getAttribute("activity_detail_sponsor") != null ? request.getAttribute("activity_detail_sponsor") : "" %></td>
+                            <td><%=request.getAttribute("activity_detail_sponsor") != null ? request.getAttribute("activity_detail_sponsor") : "" %>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                     <div class="buttons">
-                    <button type="button" class="btn btn-default btn-lg btn-block">Join in</button>
-                    <button type="button" class="btn btn-default btn-lg btn-block">Observe</button>
+                        <%
+                            if (register) {
+                        %>
+                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onDeregister()">Deregister</button>
+                        <%
+                        } else {
+                        %>
+                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onJoin()">Join in</button>
+                        <%
+                            }
+                        %>
+                        <button type="button" class="btn btn-default btn-lg btn-block">Observe</button>
                     </div>
                 </div>
             </div>
@@ -140,6 +159,67 @@
     </footer>
 
 </div>
-
 </body>
 </html>
+<script type="text/javascript">
+
+    console.log("Enter");
+
+    function onJoin() {
+        var username = "<%=username%>";
+        console.log(username);
+        if (username === "null"){
+            alert("Please log in first :-)");
+            return;
+        }
+        console.log("Enter onJoin()");
+        if (window.ActiveXObject) {
+            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else if (window.XMLHttpRequest) {
+            xmlHttpRequest = new XMLHttpRequest;
+        }
+
+        if (null !== xmlHttpRequest) {
+            xmlHttpRequest.open("POST", "JoinActivityServlet", true);
+            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.setRequestHeader("Content-type",
+                "application/x-www-form-urlencoded");
+            xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>");
+        }
+    }
+
+    function onDeregister() {
+        console.log("Enter onDeregister()");
+        if (window.ActiveXObject) {
+            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else if (window.XMLHttpRequest) {
+            xmlHttpRequest = new XMLHttpRequest;
+        }
+
+        if (null !== xmlHttpRequest) {
+            xmlHttpRequest.open("POST", "DeregisterServlet", true);
+            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.setRequestHeader("Content-type",
+                "application/x-www-form-urlencoded");
+            xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>");
+        }
+    }
+
+    function ajaxCallBack() {
+
+        if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
+
+            if (xmlHttpRequest.status === 200) {
+                //XMLHttpReques对象取得服务器相应信息(文本、XML)
+                var responseText = xmlHttpRequest.responseText;
+                if (responseText === "1") {
+                    console.log(responseText);
+//                    window.location.href = "allActivity.jsp";
+                    window.history.back();
+                }
+            }
+        }
+    }
+</script>
