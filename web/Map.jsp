@@ -63,6 +63,7 @@
 
     function ajax() {
 
+        var xmlHttpRequest;
         if (window.ActiveXObject) { //IE浏览器
 
             xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
