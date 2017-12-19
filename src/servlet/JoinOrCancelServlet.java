@@ -35,7 +35,7 @@ public class JoinOrCancelServlet extends HttpServlet {
             out.flush();
         } else {
             int result = activityService.userDeregisterActivity(username, Integer.parseInt(activityID));
-            out.print(result + "J");
+            out.print(result + "D");
             out.flush();
         }
 //        request.getRequestDispatcher("allActivity.jsp").forward(request, response);

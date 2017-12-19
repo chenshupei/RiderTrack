@@ -77,5 +77,16 @@ public class ActivityServiceImpl implements ActivityService {
         return result;
     }
 
+    @Override
+    public int checkObserveAvailability(String username, int activityID) {
+        int result = 0;
+        try {
+            result = activityDao.checkObserveAvailability(username, activityID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }

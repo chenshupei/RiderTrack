@@ -17,4 +17,6 @@ public interface ActivityDao {
     int userJoinActivity(String username, int activityID) throws Exception;
 
     int userDeregisterActivity(String username, int activityID) throws Exception;
+
+    int checkObserveAvailability(String username, int activityID) throws Exception;
 }

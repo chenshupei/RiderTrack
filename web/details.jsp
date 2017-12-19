@@ -126,7 +126,7 @@
                         <%
                             }
                         %>
-                        <button type="button" class="btn btn-default btn-lg btn-block">Observe</button>
+                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onObserve()">Observe</button>
                     </div>
                 </div>
             </div>
@@ -184,7 +184,7 @@
 
         if (null !== xmlHttpRequest) {
             xmlHttpRequest.open("POST", "JoinOrCancelServlet", true);
-            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.onreadystatechange = ajaxCallBackBtn1;
             xmlHttpRequest.setRequestHeader("Content-type",
                 "application/x-www-form-urlencoded");
             xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>" + '&type=J');
@@ -202,7 +202,7 @@
 
         if (null !== xmlHttpRequest) {
             xmlHttpRequest.open("POST", "JoinOrCancelServlet", true);
-            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.onreadystatechange = ajaxCallBackBtn1;
             xmlHttpRequest.setRequestHeader("Content-type",
                 "application/x-www-form-urlencoded");
             xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>" + '&type=D');
@@ -219,8 +219,8 @@
         }
 
         if (null !== xmlHttpRequest) {
-            xmlHttpRequest.open("POST", "DeregisterServlet", true);
-            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.open("POST", "ObserveServlet", true);
+            xmlHttpRequest.onreadystatechange = ajaxCallBackBtn2;
             xmlHttpRequest.setRequestHeader("Content-type",
                 "application/x-www-form-urlencoded");
             xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>");
@@ -228,7 +228,7 @@
 
     }
 
-    function ajaxCallBack() {
+    function ajaxCallBackBtn1() {
 
         if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
 
@@ -243,6 +243,25 @@
                     alert("Deregister successfully !");
                 }
                 window.history.back()
+            }
+        }
+    }
+
+    function ajaxCallBackBtn2() {
+        if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
+
+            if (xmlHttpRequest.status === 200) {
+                //XMLHttpRequest对象取得服务器相应信息(文本、XML)
+                var responseText = xmlHttpRequest.responseText;
+                if (responseText === "2") {
+                    console.log(responseText);
+                    window.location.href = "mapParticipant.jsp";
+                } else if (responseText === "1") {
+                    window.location.href = "mapObserver.jsp";
+                } else {
+                    alert("The activity is not start yet or is closed !");
+                    window.history.back();
+                }
             }
         }
     }
