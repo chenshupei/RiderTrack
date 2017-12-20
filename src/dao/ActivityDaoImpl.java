@@ -151,4 +151,20 @@ public class ActivityDaoImpl implements ActivityDao {
         dbUtil.closeDBResource(connection, preparedStatement);
         return result;
     }
+
+    @Override
+    public int setParticipantLocation(String username, int activityID, double x, double y) throws Exception {
+        int result;
+        connection = dbUtil.getConnection();
+        String sql = "insert into location (activity_id, user_name, x, y) values (?, ?, ?, ?)";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, activityID);
+        preparedStatement.setString(2, username);
+        preparedStatement.setDouble(3, x);
+        preparedStatement.setDouble(4, y);
+
+        result = preparedStatement.executeUpdate();
+        dbUtil.closeDBResource(connection, preparedStatement);
+        return result;
+    }
 }

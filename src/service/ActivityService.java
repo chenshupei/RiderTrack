@@ -18,4 +18,6 @@ public interface ActivityService {
     int userDeregisterActivity(String username, int activityID);
 
     int checkObserveAvailability(String username, int activityID);
+
+    int setParticipantLocation(String username, int activityID, double x, double y);
 }

@@ -22,6 +22,7 @@ public class ShowDetailServlet extends HttpServlet {
         String idString = request.getParameter("id");
         int id = Integer.parseInt(idString);
         request.setAttribute("activity_id", idString);
+        request.getSession().setAttribute("activity_id", idString);
         String username = (String) request.getSession().getAttribute("username");
         boolean register = false;
         ActivityService activityService = new ActivityServiceImpl();

@@ -88,5 +88,14 @@ public class ActivityServiceImpl implements ActivityService {
         return result;
     }
 
-
+    @Override
+    public int setParticipantLocation(String username, int activityID, double x, double y) {
+        int result = 0;
+        try {
+            result = activityDao.setParticipantLocation(username, activityID, x, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

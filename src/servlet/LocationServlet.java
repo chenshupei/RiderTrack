@@ -22,8 +22,11 @@ public class LocationServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
+        String username = (String) request.getSession().getAttribute("username");
+
         String value1 = request.getParameter("v1");
         String value2 = request.getParameter("v2");
+        System.out.println(username);
         System.out.println(value1);
         System.out.println(value2);
 //        String json = "{" + '"' + "name" + '"' + ":" + '"' + value1 + '"' + "," + '"' + "age" + '"' + ":" + '"' + "20" + '"' + "}";

@@ -1,5 +1,8 @@
 package servlet;
 
+import service.ActivityService;
+import service.ActivityServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,34 +14,24 @@ import java.io.PrintWriter;
 @WebServlet(name = "AjaxServlet", urlPatterns = {"/AjaxServlet"})
 public class AjaxServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
-
-        System.out.println("ajax servlet");
-        //PrintWriter out = response.getWriter();
-
-
-        String value1 = request.getParameter("v1");
-        String value2 = request.getParameter("v2");
-        System.out.println(value1);
-        System.out.println(value2);
-        //out.print(value1 + value2);
-        //out.flush();
-    }
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
 
-        PrintWriter out = response.getWriter();
+        ActivityService activityService = new ActivityServiceImpl();
+        String username = (String) request.getSession().getAttribute("username");
+        String activityID = (String) request.getSession().getAttribute("activity_id");
 
-        String value1 = request.getParameter("v1");
-        String value2 = request.getParameter("v2");
-        System.out.println(value1);
-        System.out.println(value2);
-//      out.print(value1 + value2);
-        String json = "{" + '"' + "name" + '"' + ":" + '"' + value1 + '"' + "," + '"' + "age" + '"' + ":" + '"' + "20" + '"' + "}";
-        out.print(json);
-        out.flush();
+        String x = request.getParameter("v1");
+        String y = request.getParameter("v2");
+
+        activityService.setParticipantLocation(username, Integer.parseInt(activityID), Double.parseDouble(x), Double.parseDouble(y));
+
+        System.out.println(username);
+        System.out.println(activityID);
+        System.out.println(x);
+        System.out.println(y);
+
     }
 
 }

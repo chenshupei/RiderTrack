@@ -6,7 +6,7 @@ import dao.UserinfoDaoImpl;
 
 public class UserinfoServiceImpl implements UserinfoService {
 
-    UserinfoDao userinfoDao = new UserinfoDaoImpl();
+    private UserinfoDao userinfoDao = new UserinfoDaoImpl();
 
     @Override
     public int login(String username, String password) {
