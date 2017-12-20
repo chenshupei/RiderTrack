@@ -16,6 +16,10 @@
     <title>浏览器定位</title>
 </head>
 <body>
+<div unselectable="on" class=" BMap_stdMpCtrl BMap_stdMpType0 BMap_noprint anchorTL"
+     style="width: 62px; height: 192px; bottom: auto; right: auto; top: 10px; left: 10px; position: absolute; z-index: 1100; text-size-adjust: none;">
+    <a type="button" class="btn btn-default" href="#" onClick="history.back(-1);"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Back</a>
+</div>
 <div id="allmap"></div>
 </body>
 </html>
@@ -26,7 +30,6 @@
     map.centerAndZoom(point, 12);
     var x = 116.331398;
     var y = 39.897445;
-    var i = 1;
 
     var geolocation = new BMap.Geolocation();
     window.setInterval(location1, 5000);
@@ -60,6 +63,7 @@
 
     function ajax() {
 
+        var xmlHttpRequest;
         if (window.ActiveXObject) { //IE浏览器
 
             xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
@@ -138,8 +142,7 @@
             else {
                 alert('failed' + this.getStatus());
             }
-            var xmlHttpRequest = null;
-        }, {enableHighAccuracy: true})
+        }, {enableHighAccuracy: true});
         console.log(x + "," + y + "");
     }
 </script>

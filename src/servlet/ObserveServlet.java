@@ -11,20 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "DeregisterServlet", urlPatterns = {"/DeregisterServlet"})
-public class DeregisterServlet extends HttpServlet {
-
-
+@WebServlet(name = "ObserveServlet", urlPatterns = {"/ObserveServlet"})
+public class ObserveServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        System.out.println("Enter DeregisterServlet");
-        System.out.println("join deregister servlet");
-        String activityID = request.getParameter("activity_id");
-        String username = request.getParameter("username");
 
+        PrintWriter out = response.getWriter();
+        String username = request.getParameter("username");
+        String activityID = request.getParameter("activity_id");
         ActivityService activityService = new ActivityServiceImpl();
-        int result = activityService.userDeregisterActivity(username, Integer.parseInt(activityID));
+        int result = activityService.checkObserveAvailability(username, Integer.parseInt(activityID));
+
+        System.out.println(result);
+
         out.print(result);
         out.flush();
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

@@ -20,7 +20,7 @@ public class ActivityDaoImpl implements ActivityDao {
     public int addActivity(ActivityBean activityBean) throws Exception {
         int result = 0;
         Connection connection = dbUtil.getConnection();
-        String sql1 = "insert into activity_info (activity_name, location, start_date, end_date, description, type, sponsor) values (?, ?, cast(? as date), cast(? as date), ?, ?, ?);" ;
+        String sql1 = "insert into activity_info (activity_name, location, start_date, end_date, description, type, sponsor) values (?, ?, cast(? as date), cast(? as date), ?, ?, ?);";
         PreparedStatement preparedStatement = connection.prepareStatement(sql1);
         preparedStatement.setString(1, activityBean.getActivityName());
         preparedStatement.setString(2, activityBean.getLocation());
@@ -103,7 +103,7 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
-    public int userJoinActivity(String username, int activityID) throws Exception{
+    public int userJoinActivity(String username, int activityID) throws Exception {
         int result = 0;
         connection = dbUtil.getConnection();
         String sql = "insert into user_in_activity (user_name, activity_id, credits) values (?, ?, ?)";
@@ -128,6 +128,26 @@ public class ActivityDaoImpl implements ActivityDao {
         preparedStatement.setInt(2, activityID);
 
         result = preparedStatement.executeUpdate();
+        dbUtil.closeDBResource(connection, preparedStatement);
+        return result;
+    }
+
+    @Override
+    public int checkObserveAvailability(String username, int activityID) throws Exception {
+        int result = 0;
+        String participant;
+        connection = dbUtil.getConnection();
+        String sql = "SELECT CASE WHEN user_name IS NULL THEN 'no' ELSE user_name END AS participant FROM activity_info act LEFT JOIN (SELECT * FROM user_in_activity WHERE user_name = ?) uia ON act.id = uia.activity_id WHERE id = ? AND current_date > act.start_date AND current_date < act.end_date";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setInt(2, activityID);
+        resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            result = 1;
+            participant = resultSet.getString("participant");
+            if (!participant.equals("no"))
+                result = 2;
+        }
         dbUtil.closeDBResource(connection, preparedStatement);
         return result;
     }

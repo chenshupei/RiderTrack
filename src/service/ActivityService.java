@@ -16,4 +16,6 @@ public interface ActivityService {
     int userJoinActivity(String username, int activityID);
 
     int userDeregisterActivity(String username, int activityID);
+
+    int checkObserveAvailability(String username, int activityID);
 }

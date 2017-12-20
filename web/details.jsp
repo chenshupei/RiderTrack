@@ -126,7 +126,7 @@
                         <%
                             }
                         %>
-                        <button type="button" class="btn btn-default btn-lg btn-block">Observe</button>
+                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onObserve()">Observe</button>
                     </div>
                 </div>
             </div>
@@ -163,6 +163,8 @@
 </html>
 <script type="text/javascript">
 
+    var xmlHttpRequest;
+
     console.log("Enter");
 
     function onJoin() {
@@ -181,11 +183,11 @@
         }
 
         if (null !== xmlHttpRequest) {
-            xmlHttpRequest.open("POST", "JoinActivityServlet", true);
-            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.open("POST", "JoinOrCancelServlet", true);
+            xmlHttpRequest.onreadystatechange = ajaxCallBackBtn1;
             xmlHttpRequest.setRequestHeader("Content-type",
                 "application/x-www-form-urlencoded");
-            xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>");
+            xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>" + '&type=J');
         }
     }
 
@@ -199,24 +201,65 @@
         }
 
         if (null !== xmlHttpRequest) {
-            xmlHttpRequest.open("POST", "DeregisterServlet", true);
-            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.open("POST", "JoinOrCancelServlet", true);
+            xmlHttpRequest.onreadystatechange = ajaxCallBackBtn1;
+            xmlHttpRequest.setRequestHeader("Content-type",
+                "application/x-www-form-urlencoded");
+            xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>" + '&type=D');
+        }
+    }
+
+    function onObserve() {
+        console.log("Enter onObserve()");
+        if (window.ActiveXObject) {
+            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else if (window.XMLHttpRequest) {
+            xmlHttpRequest = new XMLHttpRequest;
+        }
+
+        if (null !== xmlHttpRequest) {
+            xmlHttpRequest.open("POST", "ObserveServlet", true);
+            xmlHttpRequest.onreadystatechange = ajaxCallBackBtn2;
             xmlHttpRequest.setRequestHeader("Content-type",
                 "application/x-www-form-urlencoded");
             xmlHttpRequest.send("activity_id=" + <%=activityId%> +"&username=" + "<%=username%>");
         }
+
     }
 
-    function ajaxCallBack() {
+    function ajaxCallBackBtn1() {
 
         if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
 
             if (xmlHttpRequest.status === 200) {
-                //XMLHttpReques对象取得服务器相应信息(文本、XML)
+                //XMLHttpRequest对象取得服务器相应信息(文本、XML)
                 var responseText = xmlHttpRequest.responseText;
-                if (responseText === "1") {
+                if (responseText === "1J") {
                     console.log(responseText);
 //                    window.location.href = "allActivity.jsp";
+                    alert("Join activity success !");
+                } else if (responseText === '1D') {
+                    alert("Deregister successfully !");
+                }
+                window.history.back()
+            }
+        }
+    }
+
+    function ajaxCallBackBtn2() {
+        if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
+
+            if (xmlHttpRequest.status === 200) {
+                //XMLHttpRequest对象取得服务器相应信息(文本、XML)
+                var responseText = xmlHttpRequest.responseText;
+                if (responseText === "2") {
+                    console.log(responseText);
+                    window.location.href = "mapParticipant.jsp";
+                } else if (responseText === "1") {
+                    window.location.href = "mapObserver.jsp";
+                } else {
+                    alert("The activity is not start yet or is closed !");
                     window.history.back();
                 }
             }
