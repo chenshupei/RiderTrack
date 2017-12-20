@@ -2,6 +2,7 @@ package dao;
 
 import bean.ActivityBean;
 import bean.UserinfoBean;
+import org.json.JSONObject;
 import util.DBUtil;
 
 import java.sql.Connection;
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ActivityDaoImpl implements ActivityDao {
     private DBUtil dbUtil = new DBUtil();
@@ -156,7 +158,7 @@ public class ActivityDaoImpl implements ActivityDao {
     public int setParticipantLocation(String username, int activityID, double x, double y) throws Exception {
         int result;
         connection = dbUtil.getConnection();
-        String sql = "insert into location (activity_id, user_name, x, y) values (?, ?, ?, ?)";
+        String sql = "insert into location (activity_id, user_name, x, y, date_time) values (?, ?, ?, ?, CURRENT_TIMESTAMP )";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, activityID);
         preparedStatement.setString(2, username);
@@ -166,5 +168,19 @@ public class ActivityDaoImpl implements ActivityDao {
         result = preparedStatement.executeUpdate();
         dbUtil.closeDBResource(connection, preparedStatement);
         return result;
+    }
+
+    @Override
+    public Map<UserinfoBean, Double[][]> getActivityLocations(int activityID) throws Exception {
+        Map<UserinfoBean, Double[][]> map;
+        connection = dbUtil.getConnection();
+        String sql = "SELECT u.user_name, u.email_address, u.name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, activityID);
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+//
+        }
+        return null;
     }
 }

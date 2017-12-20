@@ -255,9 +255,9 @@
                 var responseText = xmlHttpRequest.responseText;
                 if (responseText === "2") {
                     console.log(responseText);
-                    window.location.href = "mapParticipant.jsp";
+                    window.location.href = "mapPaintLine.jsp";
                 } else if (responseText === "1") {
-                    window.location.href = "mapObserver.jsp";
+                    window.location.href = "mapPaintLine.jsp";
                 } else {
                     alert("The activity is not start yet or is closed !");
                     window.history.back();

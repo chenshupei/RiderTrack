@@ -1,10 +1,12 @@
 package service;
 
 import bean.ActivityBean;
+import bean.UserinfoBean;
 import dao.ActivityDao;
 import dao.ActivityDaoImpl;
 
 import java.util.List;
+import java.util.Map;
 
 public class ActivityServiceImpl implements ActivityService {
 
@@ -89,13 +91,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public int setParticipantLocation(String username, int activityID, double x, double y) {
-        int result = 0;
+    public void setParticipantLocation(String username, int activityID, double x, double y) {
         try {
-            result = activityDao.setParticipantLocation(username, activityID, x, y);
+            activityDao.setParticipantLocation(username, activityID, x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+    }
+
+    @Override
+    public Map<UserinfoBean, Double[][]> getActivityLocations(int activityID) {
+        return null;
     }
 }

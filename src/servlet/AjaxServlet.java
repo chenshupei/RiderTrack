@@ -22,6 +22,7 @@ public class AjaxServlet extends HttpServlet {
         String username = (String) request.getSession().getAttribute("username");
         String activityID = (String) request.getSession().getAttribute("activity_id");
 
+
         String x = request.getParameter("v1");
         String y = request.getParameter("v2");
 

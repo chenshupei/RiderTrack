@@ -1,8 +1,10 @@
 package service;
 
 import bean.ActivityBean;
+import bean.UserinfoBean;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ActivityService {
     int addActivity(ActivityBean activityBean);
@@ -19,5 +21,7 @@ public interface ActivityService {
 
     int checkObserveAvailability(String username, int activityID);
 
-    int setParticipantLocation(String username, int activityID, double x, double y);
+    void setParticipantLocation(String username, int activityID, double x, double y);
+
+    Map<UserinfoBean, Double[][]> getActivityLocations(int activityID);
 }
