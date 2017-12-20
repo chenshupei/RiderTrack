@@ -8,7 +8,7 @@ public class DBUtil {
         String driverClass = "com.mysql.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/ridertrack";
         String name = "root";
-        String password = "xwt19961112";
+        String password = "123456";
         Class.forName(driverClass);
         connection = DriverManager.getConnection(url, name, password);
         return connection;
