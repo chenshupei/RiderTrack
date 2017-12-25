@@ -1,10 +1,10 @@
 package service;
 
 import bean.ActivityBean;
-import bean.UserinfoBean;
 
 import java.util.List;
-import java.util.Map;
+
+import com.google.gson.Gson;
 
 public interface ActivityService {
     int addActivity(ActivityBean activityBean);
@@ -23,5 +23,5 @@ public interface ActivityService {
 
     void setParticipantLocation(String username, int activityID, double x, double y);
 
-    Map<UserinfoBean, Double[][]> getActivityLocations(int activityID);
+    String getActivityLocations(int activityID, String lastUpdate);
 }

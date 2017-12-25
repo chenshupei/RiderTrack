@@ -1,6 +1,7 @@
 package dao;
 
 import bean.ActivityBean;
+import bean.UserPosition;
 import bean.UserinfoBean;
 
 import java.util.List;
@@ -23,5 +24,5 @@ public interface ActivityDao {
 
     int setParticipantLocation(String username, int activityID, double x, double y) throws Exception;
 
-    Map<UserinfoBean, Double[][]> getActivityLocations(int activityID) throws Exception;
+    Map<String, UserPosition> getActivityLocations(int activityID, String lastUpdate) throws Exception;
 }

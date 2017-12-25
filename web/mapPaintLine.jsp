@@ -49,9 +49,10 @@
 
     var x = 116.331398;
     var y = 39.897445;
+    var lastUpdate = "1000-00-00 00:00:00";
 
     var geolocation = new BMap.Geolocation();
-    window.setInterval(location, 5000);
+    window.setInterval(location1, 5000);
 
     var polyline = new BMap.Polyline(pois, {
         enableEditing: false,//是否启用线编辑，默认为false
@@ -68,7 +69,8 @@
 
     function ajax() {
 
-        var xmlHttpRequest;
+        console.log("in ajax");
+
         if (window.ActiveXObject) { //IE浏览器
 
             xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
@@ -93,7 +95,7 @@
             //采用POST提交要设置请求头参数
             xmlHttpRequest.setRequestHeader("Content-type",
                 "application/x-www-form-urlencoded");
-            xmlHttpRequest.send("v1=" + v1 + "&v2=" + v2);//真正的发送请求
+            xmlHttpRequest.send("v1=" + v1 + "&v2=" + v2 + "&lastUpdate=" + lastUpdate);//真正的发送请求
         }
     }
 
@@ -106,15 +108,19 @@
 
             if (xmlHttpRequest.status === 200) {
 
-                //XMLHttpReques对象取得服务器相应信息(文本、XML)
+                // 取得服务器相应信息(文本、XML)
                 var responseText = xmlHttpRequest.responseText;
+                var json = JSON.parse(responseText);
+                console.log(json);
+                lastUpdate = getNowFormatDate();
+                console.log(lastUpdate);
 
                 //将结果写入div中
                 //document.getElementById("div").innerHTML = responseText;
 
                 //ajax解析json第一种方法
-                eval("var json=" + responseText);
-                document.getElementById("div").innerHTML = json.name;
+//                eval("var json=" + responseText);
+//                document.getElementById("div").innerHTML = json.name;
 
                 //ajax解析json第二种方法
                 //var json =eval("[" + responseText + "]");
@@ -122,13 +128,13 @@
             }
             else {
 
-                document.getElementById("div").innerHTML = "服务器错误";
+//                document.getElementById("div").innerHTML = "服务器错误";
             }
 
         }
     }
 
-    function location() {
+    function location1() {
         geolocation.getCurrentPosition(function (r) {
             if (this.getStatus() === BMAP_STATUS_SUCCESS) {
                 var mk = new BMap.Marker(r.point);
@@ -142,7 +148,24 @@
                 alert('failed' + this.getStatus());
             }
         }, {enableHighAccuracy: true});
-        console.log(x + "," + y + "");
+    }
+
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
     }
 
 </script>

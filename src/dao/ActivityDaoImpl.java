@@ -1,14 +1,15 @@
 package dao;
 
 import bean.ActivityBean;
+import bean.UserPosition;
 import bean.UserinfoBean;
-import org.json.JSONObject;
 import util.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -171,16 +172,30 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
-    public Map<UserinfoBean, Double[][]> getActivityLocations(int activityID) throws Exception {
-        Map<UserinfoBean, Double[][]> map;
+    public Map<String, UserPosition> getActivityLocations(int activityID, String lastUpdate) throws Exception {
+        Map<String, UserPosition> map = new HashMap<>();
+
+        System.out.println("In dao");
+
         connection = dbUtil.getConnection();
-        String sql = "SELECT u.user_name, u.email_address, u.name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ?";
+        String sql = "SELECT u.user_name, u.email_address, u.name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ? AND date_time > ?";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, activityID);
+        preparedStatement.setString(2, lastUpdate);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-//
+            String userName = resultSet.getString("user_name");
+            if (map.get(userName) != null) {
+                map.get(userName).addPosition(resultSet.getDouble("x"), resultSet.getDouble("y"));
+            } else {
+                UserPosition userPosition = new UserPosition();
+                userPosition.setUsername(userName);
+                userPosition.setEmail(resultSet.getString("email_address"));
+                userPosition.setName(resultSet.getString("name"));
+                userPosition.addPosition(resultSet.getDouble("x"), resultSet.getDouble("y"));
+                map.put(userName, userPosition);
+            }
         }
-        return null;
+        return map;
     }
 }

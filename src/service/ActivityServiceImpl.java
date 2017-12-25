@@ -1,9 +1,12 @@
 package service;
 
 import bean.ActivityBean;
+import bean.UserPosition;
 import bean.UserinfoBean;
+import com.google.gson.Gson;
 import dao.ActivityDao;
 import dao.ActivityDaoImpl;
+
 
 import java.util.List;
 import java.util.Map;
@@ -100,7 +103,38 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Map<UserinfoBean, Double[][]> getActivityLocations(int activityID) {
-        return null;
+    public String getActivityLocations(int activityID, String lastUpdate) {
+        Gson gson = new Gson();
+        Map<String, UserPosition> map;
+        String json = "";
+        try {
+            map = activityDao.getActivityLocations(activityID, lastUpdate);
+            json = gson.toJson(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
     }
+
+//    public static void main(String[] args) {
+//        ActivityDao activityDao = new ActivityDaoImpl();
+//        System.out.println("In service");
+//        System.out.println("After gson init");
+//        Map<String, UserPosition> map;
+//        System.out.println("After map init");
+//        String json = "";
+//        try {
+//            System.out.println("In service try block");
+//            map = activityDao.getActivityLocations(35);
+//            Gson gson = new Gson();
+//            for (UserPosition userPosition : map.values()) {
+//                json = gson.toJson(userPosition);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("Activity service");
+//        System.out.println(json);
+//
+//    }
 }

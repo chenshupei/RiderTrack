@@ -163,7 +163,6 @@
 </html>
 <script type="text/javascript">
 
-    var xmlHttpRequest;
 
     console.log("Enter");
 
