@@ -256,7 +256,7 @@
                     console.log(responseText);
                     window.location.href = "mapPaintLine.jsp";
                 } else if (responseText === "1") {
-                    window.location.href = "mapPaintLine.jsp";
+                    window.location.href = "mapObserver.jsp";
                 } else {
                     alert("The activity is not start yet or is closed !");
                     window.history.back();

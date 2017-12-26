@@ -38,6 +38,11 @@
         strokeColor: '#fff',//设置矢量图标的线填充颜色
         strokeWeight: '2'//设置线宽
     });
+    var geolocation = new BMap.Geolocation();
+    var lastUpdate = "1000-00-00 00:00:00";
+
+    window.setInterval(location1, 5000);
+
     var icons = new BMap.IconSequence(sy, '10', '30');
     // 创建polyline对象
     var pois = [
@@ -49,10 +54,6 @@
 
     var x = 116.331398;
     var y = 39.897445;
-    var lastUpdate = "1000-00-00 00:00:00";
-
-    var geolocation = new BMap.Geolocation();
-    window.setInterval(location1, 5000);
 
     var polyline = new BMap.Polyline(pois, {
         enableEditing: false,//是否启用线编辑，默认为false
@@ -69,7 +70,7 @@
 
     function ajax() {
 
-        console.log("in ajax");
+        console.log("Enter ajax");
 
         if (window.ActiveXObject) { //IE浏览器
 
@@ -99,7 +100,6 @@
         }
     }
 
-    //    setTimeout("ajax()", 5000);
 
     //Ajax的回调函数
     function ajaxCallBack() {
@@ -108,27 +108,14 @@
 
             if (xmlHttpRequest.status === 200) {
 
-                // 取得服务器相应信息(文本、XML)
+                // Download (x, y) as well as bean of each participant.
                 var responseText = xmlHttpRequest.responseText;
                 var json = JSON.parse(responseText);
-                console.log(json);
                 lastUpdate = getNowFormatDate();
-                console.log(lastUpdate);
-
-                //将结果写入div中
-                //document.getElementById("div").innerHTML = responseText;
-
-                //ajax解析json第一种方法
-//                eval("var json=" + responseText);
-//                document.getElementById("div").innerHTML = json.name;
-
-                //ajax解析json第二种方法
-                //var json =eval("[" + responseText + "]");
-                //document.getElementById("div").innerHTML = json[0].name;
+                plotLines(json);
             }
             else {
-
-//                document.getElementById("div").innerHTML = "服务器错误";
+                alert("Server error!");
             }
 
         }
@@ -162,10 +149,39 @@
         if (strDate >= 0 && strDate <= 9) {
             strDate = "0" + strDate;
         }
-        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+        return date.getFullYear() + seperator1 + month + seperator1 + strDate
             + " " + date.getHours() + seperator2 + date.getMinutes()
             + seperator2 + date.getSeconds();
-        return currentdate;
+    }
+
+    function plotLines(json) {
+        for (var k in json) {
+            var points = json[k].positions;
+            var pointsBD = [];
+            for (var i = 0; i < points.length; i++) {
+                pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
+            }
+
+            var icons = new BMap.IconSequence(sy, '10', '30');
+
+            console.log(pointsBD);
+
+            var polyline = new BMap.Polyline(pointsBD, {
+                enableEditing: false,//是否启用线编辑，默认为false
+                enableClicking: true,//是否响应点击事件，默认为true
+                icons: [icons],
+                strokeWeight: '8',//折线的宽度，以像素为单位
+                strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
+                strokeColor: "#18a45b" //折线颜色
+            });
+
+            map.addOverlay(polyline);          //增加折线
+            var marker = new BMap.Marker(new BMap.Point(116.442501, 39.914603));
+            map.addOverlay(marker);
+
+
+        }
+
     }
 
 </script>

@@ -15,6 +15,25 @@ import java.io.PrintWriter;
 @WebServlet(name = "AjaxServlet", urlPatterns = {"/AjaxServlet"})
 public class AjaxServlet extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+
+        ActivityService activityService = new ActivityServiceImpl();
+        String username = (String) request.getSession().getAttribute("username");
+        String activityID = (String) request.getSession().getAttribute("activity_id");
+        String lastUpdate = request.getParameter("lastUpdate");
+        System.out.println(lastUpdate);
+
+
+        // Download all the position info to servlet
+        String jsonObject = activityService.getActivityLocations(Integer.parseInt(activityID), lastUpdate);
+        System.out.println(jsonObject);
+        out.print(jsonObject);
+        out.flush();
+    }
+
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {

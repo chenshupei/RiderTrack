@@ -7,7 +7,7 @@ public class UserPosition {
     private String name;
     private String username;
     private String email;
-    private ArrayList<double[]> position = new ArrayList<>();
+    private ArrayList<double[]> positions = new ArrayList<>();
 
 
     public String getName() {
@@ -38,10 +38,10 @@ public class UserPosition {
         double[] p = new double[2];
         p[0] = x;
         p[1] = y;
-        position.add(p);
+        positions.add(p);
     }
 
-    public ArrayList<double[]> getPosition() {
-        return position;
+    public ArrayList<double[]> getPositions() {
+        return positions;
     }
 }
