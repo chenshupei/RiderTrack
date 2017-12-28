@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="css/my-css.css" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Hello, World</title>
@@ -10,13 +11,16 @@
         #container{height:100%;margin: 20px;}
     </style>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=YWdGplhYjUGQ3GtpKNeuTM2S"></script>
-
 </head>
 
 <body>
 <div id="container"></div>
 <script type="text/javascript">
 
+
+    function getRandomColor(){
+        return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
+    }
 
     function ajax() {
 
@@ -91,33 +95,37 @@
 
     function plotLines(json) {
         for (var k in json) {
+            console.log(json[k].username);
+            var name = json[k].username;
+            if (uName.indexOf(name) === -1) {
+                uName.push(name);
+                clName.push(getRandomColor());
+            }
             var points = json[k].positions;
             var pointsBD = [];
             for (var i = 0; i < points.length; i++) {
                 pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
             }
-            var pois = [
-                new BMap.Point(116.350658, 39.938285),
-                new BMap.Point(116.386446, 39.939281),
-                new BMap.Point(116.389034, 39.913828),
-                new BMap.Point(116.442501, 39.914603)
-            ];
-            console.log(pois);
-            console.log(pointsBD);
 
             var polyline = new BMap.Polyline(pointsBD, {
                 enableEditing: false,//是否启用线编辑，默认为false
                 enableClicking: true,//是否响应点击事件，默认为true
-                strokeWeight: '8',//折线的宽度，以像素为单位
+                strokeWeight: '2',//折线的宽度，以像素为单位
                 strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
-                strokeColor: "#18a45b" //折线颜色
+                strokeColor: clName[uName.indexOf(name)] //折线颜色
             });
 
-
+//            if(marker !== null){
+//                map.removeOverlay(marker);
+//            }
+//            map.addOverlay(polyline);          //增加折线
+//            marker = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+//            map.addOverlay(marker);
             map.addOverlay(polyline);          //增加折线
             var marker = new BMap.Marker(pointsBD[pointsBD.length - 1]);
             map.addOverlay(marker);
         }
+
     }
 
     function location1() {
@@ -144,6 +152,11 @@
 
     var x;
     var y;
+
+    var uName = [];
+    var clName = [];
+
+    var marker;
 
     setTimeout(location1, 1000);//动态生成新的点。
 </script>
