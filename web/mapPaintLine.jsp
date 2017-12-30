@@ -104,7 +104,7 @@
 
     function modal(id) {
         var e1 = document.getElementById('modal-overlay');
-        e1.style.visibility = (e1.style.visibility == "visible") ? "hidden" : "visible";
+        e1.style.visibility = (e1.style.visibility === "visible") ? "hidden" : "visible";
         var car_index = parseInt(id.substr(1));
 
         obj_id = carData[car_index].obj_id;
@@ -225,6 +225,7 @@
     }
 
     function location1() {
+        var geolocation = new BMap.Geolocation();
         geolocation.getCurrentPosition(function (r) {
             if (this.getStatus() === BMAP_STATUS_SUCCESS) {
                 x = r.point.lng;
@@ -236,14 +237,13 @@
             }
         }, {enableHighAccuracy: true});
 
-        setTimeout(location1, 1000);
+        setTimeout(location1, 2000);
     }
 
     var map = new BMap.Map("container");
     map.centerAndZoom(new BMap.Point(103.388611,35.563611), 5); //初始显示中国。
     map.enableScrollWheelZoom();//滚轮放大缩小
 
-    var geolocation = new BMap.Geolocation();
     var lastUpdate = "1000-00-00 00:00:00";
 
     var x;

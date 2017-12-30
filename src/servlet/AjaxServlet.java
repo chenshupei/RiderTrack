@@ -55,7 +55,7 @@ public class AjaxServlet extends HttpServlet {
         System.out.println(lastUpdate);
 
         // Upload position info to db
-//        activityService.setParticipantLocation(username, Integer.parseInt(activityID), Double.parseDouble(x), Double.parseDouble(y));
+        activityService.setParticipantLocation(username, Integer.parseInt(activityID), Double.parseDouble(x), Double.parseDouble(y));
 
         // Download all the position info to servlet
         String jsonObject = activityService.getActivityLocations(Integer.parseInt(activityID), lastUpdate);
