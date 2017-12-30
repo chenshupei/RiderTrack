@@ -100,6 +100,7 @@
             if (uName.indexOf(name) === -1) {
                 uName.push(name);
                 clName.push(getRandomColor());
+                markers.push(null);
             }
             var points = json[k].positions;
             var pointsBD = [];
@@ -115,15 +116,15 @@
                 strokeColor: clName[uName.indexOf(name)] //折线颜色
             });
 
-//            if(marker !== null){
-//                map.removeOverlay(marker);
-//            }
-//            map.addOverlay(polyline);          //增加折线
-//            marker = new BMap.Marker(pointsBD[pointsBD.length - 1]);
-//            map.addOverlay(marker);
+            if(markers[uName.indexOf(name)] !== null){
+                map.removeOverlay(markers[uName.indexOf(name)]);
+            }
+
+            markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+            map.addOverlay(markers[uName.indexOf(name)]);
+            markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+
             map.addOverlay(polyline);          //增加折线
-            var marker = new BMap.Marker(pointsBD[pointsBD.length - 1]);
-            map.addOverlay(marker);
         }
 
     }
@@ -140,7 +141,7 @@
             }
         }, {enableHighAccuracy: true});
 
-        setTimeout(location1, 5000);
+        setTimeout(location1, 1000);
     }
 
     var map = new BMap.Map("container");
@@ -156,7 +157,7 @@
     var uName = [];
     var clName = [];
 
-    var marker;
+    var markers = [];
 
     setTimeout(location1, 1000);//动态生成新的点。
 </script>

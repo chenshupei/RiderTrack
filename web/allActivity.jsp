@@ -84,18 +84,23 @@
                             activityBeanList = activityService.fetchActivityList();
                         }
                         if (activityBeanList != null && activityBeanList.size() > 0) {
-                            for (int i=0;i<activityBeanList.size();i++) {
+                            for (ActivityBean anActivityBeanList : activityBeanList) {
                                 //session.setAttribute("activity_detail", activityBeanList.get(i));
-                                System.out.println(activityBeanList.get(i).getId());
+                                System.out.println(anActivityBeanList.getId());
                     %>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 displayDiv"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-                        <a class="thumbnail" href="ShowDetailServlet?id=<%=activityBeanList.get(i).getId()%>">
+                        <a class="thumbnail" href="ShowDetailServlet?id=<%=anActivityBeanList.getId()%>">
                             <img src="img/RiderTrack.png" alt="..." class="img-responsive"> <!--图片-->
                             <div class="caption">
-                                <h4> <%=activityBeanList.get(i).getActivityName()%> </h4>   <!--活动名称-->
+                                <h4><%=anActivityBeanList.getActivityName()%>
+                                </h4>   <!--活动名称-->
                                 <p style="color:midnightblue">
-                                    <span class="glyphicon glyphicon-flag" aria-hidden="true"></span> <%=activityBeanList.get(i).getLocation()%> <br/> <!--活动地点-->
-                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>  From <%=activityBeanList.get(i).getStartDate()%> to <%=activityBeanList.get(i).getStartDate()%> <!--活动开始结束时间-->
+                                    <span class="glyphicon glyphicon-flag"
+                                          aria-hidden="true"></span> <%=anActivityBeanList.getLocation()%> <br/>
+                                    <!--活动地点-->
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                    From <%=anActivityBeanList.getStartDate()%>
+                                    to <%=anActivityBeanList.getStartDate()%> <!--活动开始结束时间-->
                                     <br/>
                                 </p>
                             </div>

@@ -178,10 +178,10 @@ public class ActivityDaoImpl implements ActivityDao {
         System.out.println("In dao");
 
         connection = dbUtil.getConnection();
-        String sql = "SELECT u.user_name, u.email_address, u.name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ? AND date_time > ?";
+        String sql = "SELECT u.user_name, u.email_address, u.name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ? ";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, activityID);
-        preparedStatement.setString(2, lastUpdate);
+//        preparedStatement.setString(2, lastUpdate);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             String userName = resultSet.getString("user_name");
