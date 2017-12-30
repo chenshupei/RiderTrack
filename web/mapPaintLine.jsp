@@ -10,13 +10,108 @@
         body{height:100%;margin:0px;padding:0px}
         #container{height:100%;margin: 20px;}
     </style>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/map.css" rel="stylesheet">
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=YWdGplhYjUGQ3GtpKNeuTM2S"></script>
 </head>
 
 <body>
+
+<nav class="navbar navbar-default nav-justified navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="pull-right">
+            <ul class="nav navbar-nav">
+                <li><a href="#">close&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+            </ul>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Activity name</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <%--<button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>comment</button>--%>
+                <%--<li><button class="btn btn-primary"  data-toggle="modal" data-target="#myModal">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>--%>
+                <li><button class="btn btn-primary" onclick='modal(this.id)' style="position:absolute; margin-top:8px;">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- 模态框（Modal） -->
+<div id="modal-overlay">
+    <div class="modal-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" onclick='modal(this.id)' class="close">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    COMMENT
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row pre-scrollable">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha!</td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha!</td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <%--<ul class="list-group">--%>
+                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
+                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
+                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
+                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
+                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
+                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
+                    <%--</ul>--%>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form><div class="form-group"><input type="text" class="form-control" id="comment_text" placeholder="What do you want to comment"></div>
+                    <button type="submit" class="btn btn-default">Submit</button></form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
 <div id="container"></div>
 <script type="text/javascript">
 
+    function modal(id) {
+        var e1 = document.getElementById('modal-overlay');
+        e1.style.visibility = (e1.style.visibility == "visible") ? "hidden" : "visible";
+        var car_index = parseInt(id.substr(1));
+
+        obj_id = carData[car_index].obj_id;
+        obj_name = carData[car_index].obj_name;
+        sessionStorage.obj_name = obj_name;
+        sessionStorage.obj_id = obj_id;
+    }
 
     function getRandomColor(){
         return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
