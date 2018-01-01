@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form><div class="form-group"><input type="text" class="form-control" id="comment_text" placeholder="What do you want to comment"></div>
+                <form action="GiveCommentsServlet" method="post"><div class="form-group"><input type="text" class="form-control" id="comment_text" placeholder="What do you want to comment" name="comments"></div>
                     <button type="submit" class="btn btn-default">Submit</button></form>
             </div>
         </div><!-- /.modal-content -->

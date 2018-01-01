@@ -100,7 +100,7 @@
                                     <!--活动地点-->
                                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                     From <%=anActivityBeanList.getStartDate()%>
-                                    to <%=anActivityBeanList.getStartDate()%> <!--活动开始结束时间-->
+                                    to <%=anActivityBeanList.getEndDate()%> <!--活动开始结束时间-->
                                     <br/>
                                 </p>
                             </div>
