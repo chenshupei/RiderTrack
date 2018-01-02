@@ -96,7 +96,7 @@ The tag defines a unique tag in this tag library, defining:
 - the unique tag/element name
 - the subclass of javax.servlet.jsp.tagext.Tag implementation class
 - an optional subclass of javax.servlet.jsp.tagext.TagExtraInfo
-- the body comment type (hint)
+- the body content type (hint)
 - optional tag-specific information
 - any attributes
 -->
@@ -124,7 +124,7 @@ If this is not given, the class is not consulted at translation time.
 <!ELEMENT teiclass (#PCDATA) >
 
 <!--
-Provides a hint as to the comment of the body of this tag. Primarily
+Provides a hint as to the content of the body of this tag. Primarily
 intended for use by page composition tools.
 
 There are currently three values specified:

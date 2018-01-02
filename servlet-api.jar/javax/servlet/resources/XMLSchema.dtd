@@ -21,7 +21,7 @@
 <!-- Note this DTD is NOT normative, or even definitive. -->           <!--d-->
 <!-- prose copy in the structures REC is the definitive version -->    <!--d-->
 <!-- (which shouldn't differ from this one except for this -->         <!--d-->
-<!-- comment and entity expansions, but just in case) -->              <!--d-->
+<!-- content and entity expansions, but just in case) -->              <!--d-->
 <!-- With the exception of cases with multiple namespace
      prefixes for the XML Schema namespace, any XML document which is
      not valid per this DTD given redefinitions in its internal subset of the
@@ -122,7 +122,7 @@
 
 %xs-datatypes;
 
-<!-- the duplication below is to produce an unambiguous comment model
+<!-- the duplication below is to produce an unambiguous content model
      which allows annotation everywhere -->
 <!ELEMENT %schema; ((%include; | %import; | %redefine; | %annotation;)*,
                     ((%simpleType; | %complexType;
@@ -152,7 +152,7 @@
      It is NOT used for schema-to-schema reference, internal or
      external. -->
 
-<!-- a type is a named comment type specification which allows attribute
+<!-- a type is a named content type specification which allows attribute
      declarations-->
 <!-- -->
 
@@ -264,7 +264,7 @@
 
 <!-- Note that if order is 'all', group is not allowed inside.
      If order is 'all' THIS group must be alone (or referenced alone) at
-     the top level of a comment model -->
+     the top level of a content model -->
 <!-- If order is 'all', minOccurs==maxOccurs==1 on element/any inside -->
 <!-- Should allow minOccurs=0 inside order='all' . . . -->
 
@@ -316,7 +316,7 @@
      name and ref are mutually exclusive, one is required -->
 <!-- default for use is optional when nested, none otherwise -->
 <!-- default and fixed are mutually exclusive -->
-<!-- type attr and simpleType comment are mutually exclusive -->
+<!-- type attr and simpleType content are mutually exclusive -->
 
 <!-- an attributeGroup is a named collection of attribute decls, or a
      reference thereto -->
@@ -329,7 +329,7 @@
                  ref        %QName;        #IMPLIED
                  %attributeGroupAttrs;>
 
-<!-- ref iff no comment, no name.  ref iff not top level -->
+<!-- ref iff no content, no name.  ref iff not top level -->
 
 <!-- better reference mechanisms -->
 <!ELEMENT %unique; ((%annotation;)?, %selector;, (%field;)+)>

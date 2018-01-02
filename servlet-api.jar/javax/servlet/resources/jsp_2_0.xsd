@@ -31,7 +31,7 @@
       from a web application.
 
       The contents of this schema is used by the web-app_2_4.xsd
-      file to define JSP specific comment.
+      file to define JSP specific content.
 
     </xsd:documentation>
   </xsd:annotation>

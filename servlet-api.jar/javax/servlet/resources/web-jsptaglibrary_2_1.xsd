@@ -90,7 +90,7 @@
             <xsd:element name="name" type="javaee:tld-canonical-nameType" />
             <xsd:element name="tag-class" type="javaee:fully-qualified-classType"></xsd:element>
             <xsd:element name="tei-class" type="javaee:fully-qualified-classType" minOccurs="0"></xsd:element>
-            <xsd:element name="body-comment" type="javaee:body-contentType"></xsd:element>
+            <xsd:element name="body-content" type="javaee:body-contentType"></xsd:element>
             <xsd:element name="variable" type="javaee:variableType" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="attribute" type="javaee:tld-attributeType" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="dynamic-attributes" type="javaee:generic-booleanType" minOccurs="0" />

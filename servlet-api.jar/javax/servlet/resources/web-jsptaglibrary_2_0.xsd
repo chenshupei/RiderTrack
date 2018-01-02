@@ -394,7 +394,7 @@
         tei-class         An optional subclass of
                           javax.servlet.jsp.tagext.TagExtraInfo
 
-        body-comment      The body comment type
+        body-content      The body content type
 
         variable          Optional scripting variable information
 
@@ -449,7 +449,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="body-comment"
+      <xsd:element name="body-content"
                    type="j2ee:body-contentType">
         <xsd:annotation>
           <xsd:documentation>
@@ -593,7 +593,7 @@
 
               "true" if this attribute is of type
               javax.jsp.tagext.JspFragment, representing dynamic
-              comment that can be re-evaluated as many times
+              content that can be re-evaluated as many times
               as needed by the tag handler.  If omitted or "false",
               the default is still type="java.lang.String"
 

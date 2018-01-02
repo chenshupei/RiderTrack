@@ -5,13 +5,13 @@ public class CommentBean {
     private String username;
     private String myName;
     private String datetime;
-    private String comment;
+    private String content;
     private int countLike;
 
-    public CommentBean(String username, String name, String comment, String datetime, int countLike) {
+    public CommentBean(String username, String name, String content, String datetime, int countLike) {
         setUsername(username);
         setName(name);
-        setComment(comment);
+        setContent(content);
         setDatetime(datetime);
         setCountLike(countLike);
     }
@@ -40,12 +40,12 @@ public class CommentBean {
         this.datetime = datetime;
     }
 
-    public String getComment() {
-        return comment;
+    public String getContent() {
+        return content;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getCountLike() {

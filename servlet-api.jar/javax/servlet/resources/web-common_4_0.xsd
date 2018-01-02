@@ -974,13 +974,13 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="comment"
+      <xsd:element name="content"
                    type="javaee:cookie-commentType"
                    minOccurs="0">
         <xsd:annotation>
           <xsd:documentation>
 
-            The comment that will be assigned to any session tracking
+            The content that will be assigned to any session tracking
             cookies created by this web application.
 
           </xsd:documentation>
@@ -1097,7 +1097,7 @@
     <xsd:annotation>
       <xsd:documentation>
 
-        The comment that will be assigned to any session tracking
+        The content that will be assigned to any session tracking
         cookies created by this web application.
 
         Used in: cookie-config

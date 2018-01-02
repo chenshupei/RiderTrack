@@ -38,9 +38,9 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <%--<button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>comment</button>--%>
-                <%--<li><button class="btn btn-primary"  data-toggle="modal" data-target="#myModal">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>--%>
-                <li><button class="btn btn-primary" onclick='modal(this.id)' style="position:absolute; margin-top:8px;">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>
+                <%--<button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-content" aria-hidden="true"></span>content</button>--%>
+                <%--<li><button class="btn btn-primary"  data-toggle="modal" data-target="#myModal">content&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button></li>--%>
+                <li><button class="btn btn-primary" onclick='modal(this.id)' style="position:absolute; margin-top:8px;">content&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button></li>
             </ul>
         </div>
     </div>
@@ -63,27 +63,27 @@
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha!</td>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha!</td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha!</td>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha!</td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         </tbody>
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form><div class="form-group"><input type="text" class="form-control" id="comment_text" placeholder="What do you want to comment"></div>
+                <form><div class="form-group"><input type="text" class="form-control" id="comment_text" placeholder="What do you want to content"></div>
                     <button type="submit" class="btn btn-default">Submit</button></form>
             </div>
         </div><!-- /.modal-content -->

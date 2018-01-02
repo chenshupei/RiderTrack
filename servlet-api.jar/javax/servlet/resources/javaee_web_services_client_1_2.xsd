@@ -551,7 +551,7 @@
                  have been declared in a namespace declaration
                  attribute in either the start-tag of the element
                  where the prefix is used or in an an ancestor
-                 element (i.e. an element in whose comment the
+                 element (i.e. an element in whose content the
                  prefixed markup occurs)
 
              Pattern : service-name-pattern="ns1:EchoService*"
@@ -563,7 +563,7 @@
                  a namespace declaration attribute in either the
                  start-tag of the element where the prefix is used or
                  in an an ancestor element (i.e. an element in whose
-                 comment the prefixed markup occurs)
+                 content the prefixed markup occurs)
 
              Wild Card : service-name-pattern="*"
 

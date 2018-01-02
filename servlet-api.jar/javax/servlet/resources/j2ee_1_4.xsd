@@ -62,7 +62,7 @@ Deployment File may indicate one of the following:
         elements consistent across J2EE deployment descriptors.
 
         All elements may occur multiple times with different languages,
-        to support localization of the comment.
+        to support localization of the content.
 
       </xsd:documentation>
     </xsd:annotation>
@@ -610,7 +610,7 @@ Deployment File may indicate one of the following:
 
         The java-identifierType defines a Java identifier.
         The users of this type should further verify that
-        the comment does not contain Java reserved keywords.
+        the content does not contain Java reserved keywords.
 
       </xsd:documentation>
     </xsd:annotation>

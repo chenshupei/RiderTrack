@@ -3,8 +3,8 @@
 <head>
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <link href="css/my-css.css" rel="stylesheet">
-    <meta name="viewport" comment="initial-scale=1.0, user-scalable=no"/>
-    <meta http-equiv="Content-Type" comment="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Hello, World</title>
     <style type="text/css">
         html {
@@ -41,11 +41,11 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <%--<button class="btn btn-primary" data-toggle="onComment" data-target="#myModal"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>comment</button>--%>
-                <%--<li><button class="btn btn-primary"  data-toggle="onComment" data-target="#myModal">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>--%>
+                <%--<button class="btn btn-primary" data-toggle="onComment" data-target="#myModal"><span class="glyphicon glyphicon-content" aria-hidden="true"></span>content</button>--%>
+                <%--<li><button class="btn btn-primary"  data-toggle="onComment" data-target="#myModal">content&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button></li>--%>
                 <li>
                     <button class="btn btn-primary" onclick='onComment()' style="position:absolute; margin-top:8px;">
-                        comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                        content&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button>
                 </li>
             </ul>
         </div>
@@ -56,7 +56,7 @@
 <!-- 模态框（Modal） -->
 <div id="modal-overlay">
     <div class="modal-data">
-        <div class="modal-comment">
+        <div class="modal-content">
             <div class="modal-header">
                 <button type="button" onclick='onComment()' class="close">
                 </button>
@@ -69,38 +69,38 @@
                     <table class="table table-hover">
                         <tbody id="table">
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
                                 Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah!
                                 hahaha!
                             </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
                                 Hahaha!
                             </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
                                 Hahaha! Good activity! I love it!
                             </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
                                 Hahaha! Good activity! I love it!
                             </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
                                 Hahaha! Good activity! I love it!
                             </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
                                 Hahaha! Good activity! I love it!
                             </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
@@ -112,11 +112,11 @@
             <div class="modal-footer">
                 <form id="ajax_form" class="ajax_form" name="ajax_form">
                     <div class="form-group"><input type="text" class="form-control" id="comment_text"
-                                                   placeholder="What do you want to comment" name="comment"></div>
+                                                   placeholder="What do you want to content" name="content"></div>
                     <input type="button" class="btn_submit" onclick="onSubmit()" value="submit"/>
                 </form>
             </div>
-        </div><!-- /.onComment-comment -->
+        </div><!-- /.onComment-content -->
     </div><!-- /.onComment -->
 </div>
 
@@ -170,7 +170,7 @@
     }
 
     function addRaw(commentObj) {
-        var string = commentObj.myName + ": " + commentObj.comment + "@" + commentObj.datetime;
+        var string = commentObj.myName + ": " + commentObj.content + "@" + commentObj.datetime;
         console.log(string);
         $("#table").append("<tr><td>" + string + "</td></tr>");
     }
