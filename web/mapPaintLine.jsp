@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <link href="css/my-css.css" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -107,21 +108,13 @@
                         </tr>
                         </tbody>
                     </table>
-                    <%--<ul class="list-group">--%>
-                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
-                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
-                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
-                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
-                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
-                    <%--<li class="list-group-item">LiuSitong: haha!,good good good</li>--%>
-                    <%--</ul>--%>
                 </div>
             </div>
             <div class="modal-footer">
-                <form id="comment_form" action="GiveCommentsServlet" method="post">
+                <form id="ajax_form" class="ajax_form" name="ajax_form">
                     <div class="form-group"><input type="text" class="form-control" id="comment_text"
                                                    placeholder="What do you want to comment" name="comment"></div>
-                    <button type="submit" class="btn btn-default" onclick="onSubmit()">Submit</button>
+                    <input type="button" class="btn_submit" onclick="onSubmit()" value="submit"/>
                 </form>
             </div>
         </div><!-- /.modal-content -->
@@ -132,12 +125,60 @@
 <div id="container"></div>
 <script type="text/javascript">
 
+//    function onSubmit() {
+//        var data = {
+//            url:"GiveCommentsServlet",//提交地址
+//            data:$("#ajax_form").serialize(),//将表单数据序列化
+//            type:"POST",
+//            dataType:"json",
+//            success:function(result){
+//                console.log(result);
+//            }
+//        };
+//        console.log(data);
+//        $.ajax(data);
+//    }
     function onSubmit() {
-        document.getElementById("comment_form").submit();
+        var comment = document.getElementById("comment_text").value;
+        if (window.ActiveXObject) { //IE浏览器
+
+            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+
+        }
+        else if (window.XMLHttpRequest) { //非IE浏览器
+
+            xmlHttpRequest = new XMLHttpRequest;
+        }
+
+        if (null !== xmlHttpRequest) {
+
+
+            //采用POST提交
+            xmlHttpRequest.open("POST", "GiveCommentsServlet", true);
+
+            //Ajax的回调函数
+            xmlHttpRequest.onreadystatechange = ajaxCallBack3;
+
+            //采用POST提交要设置请求头参数
+            xmlHttpRequest.setRequestHeader("Content-type",
+                "application/x-www-form-urlencoded");
+            xmlHttpRequest.send("comment=" + comment);//真正的发送请求
+        }
     }
 
-    function ajaxCallBack3() {
 
+
+    function ajaxCallBack3() {
+        if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
+
+            if (xmlHttpRequest.status === 200) {
+
+            }
+            else {
+                alert("Server error!");
+            }
+
+        }
     }
 
     function modal(id) {
