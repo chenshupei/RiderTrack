@@ -1,6 +1,7 @@
 package service;
 
 import bean.ActivityBean;
+import bean.CommentBean;
 import bean.UserPosition;
 import bean.UserinfoBean;
 import com.google.gson.Gson;
@@ -8,6 +9,7 @@ import dao.ActivityDao;
 import dao.ActivityDaoImpl;
 
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -125,5 +127,19 @@ public class ActivityServiceImpl implements ActivityService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public String getComments(int activityID) {
+        String json = "";
+        LinkedList<CommentBean> commentBeans;
+        try {
+            commentBeans = activityDao.getComments(activityID);
+            Gson gson = new Gson();
+            json = gson.toJson(commentBeans);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

@@ -20,6 +20,7 @@ public class GiveCommentsServlet extends HttpServlet {
         int activity_id = Integer.parseInt((String) request.getSession().getAttribute("activity_id"));
         String username = (String) request.getSession().getAttribute("username");
         String comment = request.getParameter("comment");
+        System.out.println("activityID: " + activity_id);
         System.out.println("comment:" + comment);
 
         ActivityService activityService = new ActivityServiceImpl();

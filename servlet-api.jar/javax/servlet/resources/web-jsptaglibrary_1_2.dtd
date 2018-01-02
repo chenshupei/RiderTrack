@@ -195,7 +195,7 @@ tag-class         The tag handler class implementing
 tei-class         An optional subclass of
                   javax.servlet.jsp.tagext.TagExtraInfo
 
-body-content      The body content type
+body-comment      The body comment type
 
 display-name      A short name that is intended to be displayed
                   by tools
@@ -215,7 +215,7 @@ example           Optional informal description of an example of a
 
 -->
 
-<!ELEMENT tag (name, tag-class, tei-class?, body-content?, display-name?,
+<!ELEMENT tag (name, tag-class, tei-class?, body-comment?, display-name?,
                small-icon?, large-icon?, description?, variable*, attribute*,
                example?) >
 
@@ -240,7 +240,7 @@ If this is not given, the class is not consulted at translation time.
 <!ELEMENT tei-class (#PCDATA) >
 
 <!--
-Provides a hint as to the content of the body of this tag. Primarily
+Provides a hint as to the comment of the body of this tag. Primarily
 intended for use by page composition tools.
 
 There are currently three values specified:
@@ -259,7 +259,7 @@ The default (if not defined) is JSP
 
 -->
 
-<!ELEMENT body-content (#PCDATA) >
+<!ELEMENT body-comment (#PCDATA) >
 
 <!--
 
@@ -465,7 +465,7 @@ java.lang.String.
 <!ATTLIST tag id ID #IMPLIED>
 <!ATTLIST tag-class id ID #IMPLIED>
 <!ATTLIST tei-class id ID #IMPLIED>
-<!ATTLIST body-content id ID #IMPLIED>
+<!ATTLIST body-comment id ID #IMPLIED>
 <!ATTLIST attribute id ID #IMPLIED>
 <!ATTLIST name id ID #IMPLIED>
 <!ATTLIST required id ID #IMPLIED>

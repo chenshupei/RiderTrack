@@ -494,7 +494,7 @@
              have been declared in a namespace declaration
              attribute in either the start-tag of the element
              where the prefix is used or in an an ancestor
-             element (i.e. an element in whose content the
+             element (i.e. an element in whose comment the
              prefixed markup occurs)
 
 
@@ -507,7 +507,7 @@
              a namespace declaration attribute in either the
              start-tag of the element where the prefix is used or
              in an an ancestor element (i.e. an element in whose
-             content the prefixed markup occurs)
+             comment the prefixed markup occurs)
 
         Wild Card : service-name-pattern="*"
 

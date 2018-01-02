@@ -1,9 +1,12 @@
 package dao;
 
 import bean.ActivityBean;
+import bean.CommentBean;
 import bean.UserPosition;
 import bean.UserinfoBean;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,4 +30,6 @@ public interface ActivityDao {
     Map<String, UserPosition> getActivityLocations(int activityID, String lastUpdate) throws Exception;
 
     int addComments(int activityID, String username, String comments) throws Exception;
+
+    LinkedList<CommentBean> getComments(int activityID) throws Exception;
 }

@@ -79,7 +79,7 @@
         elements consistent across Java EE deployment descriptors.
 
         All elements may occur multiple times with different languages,
-        to support localization of the content.
+        to support localization of the comment.
 
       </xsd:documentation>
     </xsd:annotation>
@@ -1279,7 +1279,7 @@
 
         The java-identifierType defines a Java identifier.
         The users of this type should further verify that
-        the content does not contain Java reserved keywords.
+        the comment does not contain Java reserved keywords.
 
       </xsd:documentation>
     </xsd:annotation>

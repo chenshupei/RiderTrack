@@ -1,6 +1,7 @@
 package dao;
 
 import bean.ActivityBean;
+import bean.CommentBean;
 import bean.UserPosition;
 import bean.UserinfoBean;
 import util.DBUtil;
@@ -8,10 +9,7 @@ import util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ActivityDaoImpl implements ActivityDao {
     private DBUtil dbUtil = new DBUtil();
@@ -206,5 +204,23 @@ public class ActivityDaoImpl implements ActivityDao {
         preparedStatement.setString(3, comments);
         int result = preparedStatement.executeUpdate();
         return result;
+    }
+
+    @Override
+    public LinkedList<CommentBean> getComments(int activityID) throws Exception {
+        LinkedList<CommentBean> commentBeans = new LinkedList<>();
+        connection = dbUtil.getConnection();
+        String sql = "SELECT usr.user_name, usr.name, content, date_time, cnt_like FROM updates upd JOIN user_info usr ON upd.user_name = usr.user_name WHERE activity_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, activityID);
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            commentBeans.add(new CommentBean(resultSet.getString("user_name"),
+                                             resultSet.getString("name"),
+                                             resultSet.getString("content"),
+                                             resultSet.getString("date_time"),
+                                             resultSet.getInt("cnt_like")));
+        }
+        return commentBeans;
     }
 }

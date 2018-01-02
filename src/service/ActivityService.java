@@ -26,4 +26,6 @@ public interface ActivityService {
     String getActivityLocations(int activityID, String lastUpdate);
 
     int addComments(int activityID, String username, String comments);
+
+    String getComments(int activityID);
 }

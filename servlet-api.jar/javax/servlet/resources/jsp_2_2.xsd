@@ -66,7 +66,7 @@
       from a web application.
 
       The contents of this schema is used by the web-common_3_0.xsd
-      file to define JSP specific content.
+      file to define JSP specific comment.
 
     </xsd:documentation>
   </xsd:annotation>
@@ -296,13 +296,13 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="default-content-type"
+      <xsd:element name="default-comment-type"
                    type="javaee:string"
                    minOccurs="0">
         <xsd:annotation>
           <xsd:documentation>
 
-            The valid values of default-content-type are those of the
+            The valid values of default-comment-type are those of the
             contentType page directive.  It specifies the default
             response contentType if the page directive does not include
             a contentType attribute.

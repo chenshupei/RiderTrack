@@ -3,8 +3,8 @@
 <head>
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <link href="css/my-css.css" rel="stylesheet">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" comment="initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Content-Type" comment="text/html; charset=utf-8"/>
     <title>Hello, World</title>
     <style type="text/css">
         html {
@@ -41,10 +41,10 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <%--<button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>comment</button>--%>
-                <%--<li><button class="btn btn-primary"  data-toggle="modal" data-target="#myModal">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>--%>
+                <%--<button class="btn btn-primary" data-toggle="onComment" data-target="#myModal"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>comment</button>--%>
+                <%--<li><button class="btn btn-primary"  data-toggle="onComment" data-target="#myModal">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>--%>
                 <li>
-                    <button class="btn btn-primary" onclick='modal(this.id)' style="position:absolute; margin-top:8px;">
+                    <button class="btn btn-primary" onclick='onComment()' style="position:absolute; margin-top:8px;">
                         comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
                 </li>
             </ul>
@@ -56,9 +56,9 @@
 <!-- 模态框（Modal） -->
 <div id="modal-overlay">
     <div class="modal-data">
-        <div class="modal-content">
+        <div class="modal-comment">
             <div class="modal-header">
-                <button type="button" onclick='modal(this.id)' class="close">
+                <button type="button" onclick='onComment()' class="close">
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
                     COMMENT
@@ -67,7 +67,7 @@
             <div class="modal-body">
                 <div class="row pre-scrollable">
                     <table class="table table-hover">
-                        <tbody>
+                        <tbody id="table">
                         <tr>
                             <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
                                 Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah!
@@ -116,42 +116,63 @@
                     <input type="button" class="btn_submit" onclick="onSubmit()" value="submit"/>
                 </form>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+        </div><!-- /.onComment-comment -->
+    </div><!-- /.onComment -->
 </div>
 
 
 <div id="container"></div>
 <script type="text/javascript">
 
-        function onSubmit() {
-            $.ajax({
-                url:"GiveCommentsServlet",//提交地址
-                data:$("#ajax_form").serialize(),//将表单数据序列化
-                type:"POST",
-                dataType:"json",
-                success:function(result){
-                    if (result === 1) {
-                        console.log(result);
-                        document.getElementById('comment_text').value = "";
-                    } else {
-                        alert("Comment failed!")
-                    }
+    function onSubmit() {
+        $.ajax({
+            url:"GiveCommentsServlet",//提交地址
+            data:$("#ajax_form").serialize(),//将表单数据序列化
+            type:"POST",
+            dataType:"json",
+            success:function(result){
+                if (result === 1) {
+                    console.log(result);
+                    document.getElementById('comment_text').value = "";
+                } else {
+                    alert("Comment failed!")
                 }
-            });
+                refresh();
+            }
+        });
 
-        }
+    }
 
 
-    function modal(id) {
+    function onComment() {
         var e1 = document.getElementById('modal-overlay');
         e1.style.visibility = (e1.style.visibility === "visible") ? "hidden" : "visible";
-        var car_index = parseInt(id.substr(1));
+        refresh();
+    }
 
-        obj_id = carData[car_index].obj_id;
-        obj_name = carData[car_index].obj_name;
-        sessionStorage.obj_name = obj_name;
-        sessionStorage.obj_id = obj_id;
+    function refresh() {
+        $.ajax({
+            url: "DisplayCommentsServlet",//提交地址
+            type: "GET",
+            success: function (jsonString) {
+                displayComments(jsonString)
+            }
+        });
+    }
+
+    function displayComments(jsonString) {
+        var json = JSON.parse(jsonString);
+        console.log(json);
+        $("#table").text("");
+        for (var i = 0; i <= json.length - 1; i++) {
+            addRaw(json[i]);
+        }
+    }
+
+    function addRaw(commentObj) {
+        var string = commentObj.myName + ": " + commentObj.comment + "@" + commentObj.datetime;
+        console.log(string);
+        $("#table").append("<tr><td>" + string + "</td></tr>");
     }
 
     function getRandomColor() {
