@@ -238,7 +238,7 @@
         <p><a target="_blank"
               href="//shang.qq.com/wpa/qunwpa?idkey=0933f259e682262e57fbd2ba45834b5e88d350a7690353ac8799f7b4cd312666">
             Contact us by QQ</a>
-            © 2017 SUSTech OOAD Group 10.
+            &#169 2017 SUSTech OOAD Group 10.
 
             <%=request.getAttribute("msg_welcome") != null ? request.getAttribute("msg_welcome") : ""%></p>
         <p>
