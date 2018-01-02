@@ -59,7 +59,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" onclick='modal(this.id)' class="close">
-                    &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
                     COMMENT
@@ -132,55 +131,17 @@
                 type:"POST",
                 dataType:"json",
                 success:function(result){
-                    console.log(result);
+                    if (result === 1) {
+                        console.log(result);
+                        document.getElementById('comment_text').value = "";
+                    } else {
+                        alert("Comment failed!")
+                    }
                 }
             });
-        }
-
-//    function onSubmit() {
-//        var comment = document.getElementById("comment_text").value;
-//        document.getElementById('comment_text').value = "";
-//
-//
-//        if (window.ActiveXObject) { //IE浏览器
-//
-//            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-//
-//        }
-//        else if (window.XMLHttpRequest) { //非IE浏览器
-//
-//            xmlHttpRequest = new XMLHttpRequest;
-//        }
-//
-//        if (null !== xmlHttpRequest) {
-//
-//
-//            //采用POST提交
-//            xmlHttpRequest.open("POST", "GiveCommentsServlet", true);
-//
-//            //Ajax的回调函数
-//            xmlHttpRequest.onreadystatechange = ajaxCallBack3;
-//
-//            //采用POST提交要设置请求头参数
-//            xmlHttpRequest.setRequestHeader("Content-type",
-//                "application/x-www-form-urlencoded");
-//            xmlHttpRequest.send("comment=" + comment);//真正的发送请求
-//        }
-//    }
-
-
-    function ajaxCallBack3() {
-        if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
-
-            if (xmlHttpRequest.status === 200) {
-
-            }
-            else {
-                alert("Server error!");
-            }
 
         }
-    }
+
 
     function modal(id) {
         var e1 = document.getElementById('modal-overlay');

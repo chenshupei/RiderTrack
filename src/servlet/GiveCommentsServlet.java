@@ -24,7 +24,7 @@ public class GiveCommentsServlet extends HttpServlet {
 
         ActivityService activityService = new ActivityServiceImpl();
         int result = activityService.addComments(activity_id, username, comment);
-        out.print(100);
+        out.print(result);
         out.flush();
     }
 
