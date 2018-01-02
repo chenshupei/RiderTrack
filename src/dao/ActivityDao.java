@@ -25,4 +25,6 @@ public interface ActivityDao {
     int setParticipantLocation(String username, int activityID, double x, double y) throws Exception;
 
     Map<String, UserPosition> getActivityLocations(int activityID, String lastUpdate) throws Exception;
+
+    int addComments(int activityID, String username, String comments) throws Exception;
 }

@@ -116,25 +116,14 @@ public class ActivityServiceImpl implements ActivityService {
         return json;
     }
 
-//    public static void main(String[] args) {
-//        ActivityDao activityDao = new ActivityDaoImpl();
-//        System.out.println("In service");
-//        System.out.println("After gson init");
-//        Map<String, UserPosition> map;
-//        System.out.println("After map init");
-//        String json = "";
-//        try {
-//            System.out.println("In service try block");
-//            map = activityDao.getActivityLocations(35);
-//            Gson gson = new Gson();
-//            for (UserPosition userPosition : map.values()) {
-//                json = gson.toJson(userPosition);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("Activity service");
-//        System.out.println(json);
-//
-//    }
+    @Override
+    public int addComments(int activityID, String username, String comments) {
+        int result = 0;
+        try {
+            result = activityDao.addComments(activityID, username, comments);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

@@ -117,7 +117,6 @@ public class ActivityDaoImpl implements ActivityDao {
 
         result = preparedStatement.executeUpdate();
         dbUtil.closeDBResource(connection, preparedStatement);
-        System.out.println("dao: " + result);
         return result;
     }
 
@@ -175,8 +174,6 @@ public class ActivityDaoImpl implements ActivityDao {
     public Map<String, UserPosition> getActivityLocations(int activityID, String lastUpdate) throws Exception {
         Map<String, UserPosition> map = new HashMap<>();
 
-        System.out.println("In dao");
-
         connection = dbUtil.getConnection();
         String sql = "SELECT u.user_name, u.email_address, u.name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ? AND date_time > ?";
         preparedStatement = connection.prepareStatement(sql);
@@ -197,5 +194,17 @@ public class ActivityDaoImpl implements ActivityDao {
             }
         }
         return map;
+    }
+
+    @Override
+    public int addComments(int activityID, String username, String comments) throws Exception {
+        connection = dbUtil.getConnection();
+        String sql = "INSERT INTO updates (user_name, activity_id, content, date_time) VALUES (?, ?, ?, CURRENT_TIMESTAMP )";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setInt(2, activityID);
+        preparedStatement.setString(3, comments);
+        int result = preparedStatement.executeUpdate();
+        return result;
     }
 }

@@ -2,13 +2,24 @@
 <html>
 <head>
     <link href="css/my-css.css" rel="stylesheet">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Hello, World</title>
     <style type="text/css">
-        html{height:100%}
-        body{height:100%;margin:0px;padding:0px}
-        #container{height:100%;margin: 20px;}
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            height: 100%;
+            margin: 20px;
+        }
     </style>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/map.css" rel="stylesheet">
@@ -31,7 +42,10 @@
             <ul class="nav navbar-nav">
                 <%--<button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>comment</button>--%>
                 <%--<li><button class="btn btn-primary"  data-toggle="modal" data-target="#myModal">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>--%>
-                <li><button class="btn btn-primary" onclick='modal(this.id)' style="position:absolute; margin-top:8px;">comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button></li>
+                <li>
+                    <button class="btn btn-primary" onclick='modal(this.id)' style="position:absolute; margin-top:8px;">
+                        comment&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                </li>
             </ul>
         </div>
     </div>
@@ -55,27 +69,40 @@
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah! hahaha!</td>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah!
+                                hahaha!
+                            </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha!</td>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha!
+                            </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         <tr>
-                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it!</td>
+                            <td class="comment-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
                             <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         </tbody>
@@ -91,8 +118,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form action="GiveCommentsServlet" method="post"><div class="form-group"><input type="text" class="form-control" id="comment_text" placeholder="What do you want to comment" name="comments"></div>
-                    <button type="submit" class="btn btn-default">Submit</button></form>
+                <form id="comment_form" action="GiveCommentsServlet" method="post">
+                    <div class="form-group"><input type="text" class="form-control" id="comment_text"
+                                                   placeholder="What do you want to comment" name="comment"></div>
+                    <button type="submit" class="btn btn-default" onclick="onSubmit()">Submit</button>
+                </form>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -101,6 +131,14 @@
 
 <div id="container"></div>
 <script type="text/javascript">
+
+    function onSubmit() {
+        document.getElementById("comment_form").submit();
+    }
+
+    function ajaxCallBack3() {
+
+    }
 
     function modal(id) {
         var e1 = document.getElementById('modal-overlay');
@@ -113,8 +151,8 @@
         sessionStorage.obj_id = obj_id;
     }
 
-    function getRandomColor(){
-        return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
+    function getRandomColor() {
+        return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
     }
 
     function ajax() {
@@ -211,7 +249,7 @@
                 strokeColor: clName[uName.indexOf(name)] //折线颜色
             });
 
-            if(markers[uName.indexOf(name)] !== null){
+            if (markers[uName.indexOf(name)] !== null) {
                 map.removeOverlay(markers[uName.indexOf(name)]);
             }
 
@@ -241,7 +279,7 @@
     }
 
     var map = new BMap.Map("container");
-    map.centerAndZoom(new BMap.Point(103.388611,35.563611), 5); //初始显示中国。
+    map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 5); //初始显示中国。
     map.enableScrollWheelZoom();//滚轮放大缩小
 
     var lastUpdate = "1000-00-00 00:00:00";

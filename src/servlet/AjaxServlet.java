@@ -48,18 +48,12 @@ public class AjaxServlet extends HttpServlet {
         String x = request.getParameter("v1");
         String y = request.getParameter("v2");
         String lastUpdate = request.getParameter("lastUpdate");
-        System.out.println(username);
-        System.out.println(activityID);
-        System.out.println(x);
-        System.out.println(y);
-        System.out.println(lastUpdate);
 
         // Upload position info to db
         activityService.setParticipantLocation(username, Integer.parseInt(activityID), Double.parseDouble(x), Double.parseDouble(y));
 
         // Download all the position info to servlet
         String jsonObject = activityService.getActivityLocations(Integer.parseInt(activityID), lastUpdate);
-        System.out.println(jsonObject);
         out.print(jsonObject);
         out.flush();
     }
