@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
@@ -45,7 +46,7 @@
                 <%--<li><button class="btn btn-primary"  data-toggle="onComment" data-target="#myModal">content&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button></li>--%>
                 <li>
                     <button class="btn btn-primary" onclick='onComment()' style="position:absolute; margin-top:8px;">
-                        content&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button>
+                        comments&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button>
                 </li>
             </ul>
         </div>
@@ -112,7 +113,7 @@
             <div class="modal-footer">
                 <form id="ajax_form" class="ajax_form" name="ajax_form">
                     <div class="form-group"><input type="text" class="form-control" id="comment_text"
-                                                   placeholder="What do you want to content" name="content"></div>
+                                                   placeholder="What do you want to comment" name="comment"></div>
                     <input type="button" class="btn_submit" onclick="onSubmit()" value="submit"/>
                 </form>
             </div>
@@ -123,13 +124,13 @@
 
 <div id="container"></div>
 <script type="text/javascript">
-
     function onSubmit() {
         $.ajax({
             url:"GiveCommentsServlet",//提交地址
             data:$("#ajax_form").serialize(),//将表单数据序列化
             type:"POST",
             dataType:"json",
+            contentType:"application/x-www-form-urlencoded",
             success:function(result){
                 if (result === 1) {
                     console.log(result);

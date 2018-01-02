@@ -210,7 +210,7 @@ public class ActivityDaoImpl implements ActivityDao {
     public LinkedList<CommentBean> getComments(int activityID) throws Exception {
         LinkedList<CommentBean> commentBeans = new LinkedList<>();
         connection = dbUtil.getConnection();
-        String sql = "SELECT usr.user_name, usr.name, content, date_time, cnt_like FROM updates upd JOIN user_info usr ON upd.user_name = usr.user_name WHERE activity_id = ?";
+        String sql = "SELECT usr.user_name, usr.name, content, date_time, cnt_like FROM updates upd JOIN user_info usr ON upd.user_name = usr.user_name WHERE activity_id = ? ORDER BY date_time DESC";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, activityID);
         resultSet = preparedStatement.executeQuery();
