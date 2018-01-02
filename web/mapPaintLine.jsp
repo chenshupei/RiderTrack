@@ -125,47 +125,48 @@
 <div id="container"></div>
 <script type="text/javascript">
 
+        function onSubmit() {
+            $.ajax({
+                url:"GiveCommentsServlet",//提交地址
+                data:$("#ajax_form").serialize(),//将表单数据序列化
+                type:"POST",
+                dataType:"json",
+                success:function(result){
+                    console.log(result);
+                }
+            });
+        }
+
 //    function onSubmit() {
-//        var data = {
-//            url:"GiveCommentsServlet",//提交地址
-//            data:$("#ajax_form").serialize(),//将表单数据序列化
-//            type:"POST",
-//            dataType:"json",
-//            success:function(result){
-//                console.log(result);
-//            }
-//        };
-//        console.log(data);
-//        $.ajax(data);
+//        var comment = document.getElementById("comment_text").value;
+//        document.getElementById('comment_text').value = "";
+//
+//
+//        if (window.ActiveXObject) { //IE浏览器
+//
+//            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+//
+//        }
+//        else if (window.XMLHttpRequest) { //非IE浏览器
+//
+//            xmlHttpRequest = new XMLHttpRequest;
+//        }
+//
+//        if (null !== xmlHttpRequest) {
+//
+//
+//            //采用POST提交
+//            xmlHttpRequest.open("POST", "GiveCommentsServlet", true);
+//
+//            //Ajax的回调函数
+//            xmlHttpRequest.onreadystatechange = ajaxCallBack3;
+//
+//            //采用POST提交要设置请求头参数
+//            xmlHttpRequest.setRequestHeader("Content-type",
+//                "application/x-www-form-urlencoded");
+//            xmlHttpRequest.send("comment=" + comment);//真正的发送请求
+//        }
 //    }
-    function onSubmit() {
-        var comment = document.getElementById("comment_text").value;
-        if (window.ActiveXObject) { //IE浏览器
-
-            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-
-        }
-        else if (window.XMLHttpRequest) { //非IE浏览器
-
-            xmlHttpRequest = new XMLHttpRequest;
-        }
-
-        if (null !== xmlHttpRequest) {
-
-
-            //采用POST提交
-            xmlHttpRequest.open("POST", "GiveCommentsServlet", true);
-
-            //Ajax的回调函数
-            xmlHttpRequest.onreadystatechange = ajaxCallBack3;
-
-            //采用POST提交要设置请求头参数
-            xmlHttpRequest.setRequestHeader("Content-type",
-                "application/x-www-form-urlencoded");
-            xmlHttpRequest.send("comment=" + comment);//真正的发送请求
-        }
-    }
-
 
 
     function ajaxCallBack3() {
