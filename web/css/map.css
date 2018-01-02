@@ -11,7 +11,7 @@
     opacity: 0.95;   /* 背景半透明 */
 }
 /* 模态框样式 */
-.modal-data{
+.modal-content{
     max-width: 550px;
     width:90%;
     margin: 20px auto;
@@ -19,6 +19,10 @@
     border:1px solid #000;
     padding:2px;
     text-align:center;
+}
+
+.row{
+    min-height: 300px;
 }
 
 .modal-header{
