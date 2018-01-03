@@ -171,12 +171,16 @@ public class ActivityDaoImpl implements ActivityDao {
     @Override
     public Map<String, UserPosition> getActivityLocations(int activityID, String lastUpdate) throws Exception {
         Map<String, UserPosition> map = new HashMap<>();
-
+        String sql;
         connection = dbUtil.getConnection();
-        String sql = "SELECT u.user_name, u.email_address, u.name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ? AND date_time > ?";
+        if (!lastUpdate.equals("1000-00-00 00:00:00")) {
+            sql = "SELECT u.user_name, email_address, name, l1.x, l1.y FROM location l1 LEFT JOIN location l2 ON l1.user_name = l2.user_name AND l1.date_time < l2.date_time JOIN user_info u ON l1.user_name = u.user_name WHERE l1.activity_id = ? GROUP BY l1.user_name, l1.date_time HAVING count(l2.date_time) < 2 ORDER BY l1.date_time";
+        } else {
+            sql = "SELECT l.user_name, email_address, name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ?";
+        }
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, activityID);
-        preparedStatement.setString(2, lastUpdate);
+//        preparedStatement.setString(2, lastUpdate);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             String userName = resultSet.getString("user_name");

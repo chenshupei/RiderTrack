@@ -235,13 +235,14 @@
                 strokeColor: clName[uName.indexOf(name)] //折线颜色
             });
 
-            if (markers[uName.indexOf(name)] !== null) {
-                map.removeOverlay(markers[uName.indexOf(name)]);
+            if (markers[uName.indexOf(name)] === null) {
+                markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+                map.addOverlay(markers[uName.indexOf(name)]);
+                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+            } else {
+                markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
+                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
             }
-
-            markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
-            map.addOverlay(markers[uName.indexOf(name)]);
-            markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
 
             map.addOverlay(polyline);          //增加折线
         }
