@@ -82,10 +82,14 @@
                 <form id="ajax_form" class="ajax_form" name="ajax_form">
                     <div class="form-group">
                         <input type="text" class="form-control" id="comment_text"
-                                                   placeholder="What do you want to comment" name="comment"></div>
-                    <span id="filename" style="vertical-align: middle;font-size: small;color: #00699c;font-weight: lighter">没有图片</span>
-                    <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
-                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" style="display:none" name="file" onchange="loadFile(this.files[0])" >
+                               placeholder="What do you want to comment" name="comment"></div>
+                    <span id="filename"
+                          style="vertical-align: middle;font-size: small;color: #00699c;font-weight: lighter">没有图片</span>
+                    <button class="btn btn-default file-button" type="button"
+                            onclick="document.getElementById('file-input').click();">Upload picture
+                    </button>
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input"
+                           style="display:none" name="file" onchange="loadFile(this.files[0])">
                     <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
 
                 </form>
@@ -98,8 +102,9 @@
 <div id="container"></div>
 <script type="text/javascript">
 
+
     //显示文件名
-    function loadFile(file){
+    function loadFile(file) {
         $$("#filename").html(file.name);
     }
 
@@ -125,8 +130,8 @@
                 url: "GiveCommentsServlet",
                 type: "post",
                 dataType: "json",
-                contentType:"application/x-www-form-urlencoded",
-                success : function (data) {
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
                     document.getElementById('comment_text').value = "";
                     refresh();
                 }
@@ -217,6 +222,7 @@
             var pointsBD = [];
             for (var i = 0; i < points.length; i++) {
                 pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
+                allPoints.push(new BMap.Point(points[i][0], points[i][1]))
             }
 
             var polyline = new BMap.Polyline(pointsBD, {
@@ -231,8 +237,8 @@
                 markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
                 map.addOverlay(markers[uName.indexOf(name)]);
 //                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
-                markers[uName.indexOf(name)].addEventListener("click", function(){
-                    map.openInfoWindow(infoWindow,pointsBD[pointsBD.length - 1]); //开启信息窗口
+                markers[uName.indexOf(name)].addEventListener("click", function () {
+                    map.openInfoWindow(infoWindow, pointsBD[pointsBD.length - 1]); //开启信息窗口
                 });
             } else {
                 markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
@@ -240,8 +246,25 @@
             }
 
             map.addOverlay(polyline);          //增加折线
+
         }
 
+        if (isSetzoom === 5) {
+            setZoom(allPoints);
+            console.log('setzoom');
+            isSetzoom = 0;
+        }
+        isSetzoom++;
+    }
+
+    //根据点信息实时更新地图显示范围，让轨迹完整显示。设置新的中心点和显示级别.
+    //更新。设置不是每次增加点都重新设置显示范围。因为有可能会想放大了看。
+    function setZoom(bPoints) {
+        var view = map.getViewport(eval(bPoints));
+        var mapZoom = view.zoom;
+        var centerPoint = view.center;
+        map.centerAndZoom(centerPoint, mapZoom);
+        map.oldView = JSON.stringify(view);
     }
 
     function location1() {
@@ -260,6 +283,8 @@
         setTimeout(location1, 2000);
     }
 
+    var allPoints = [];
+    var isSetzoom = 5;
     var map = new BMap.Map("container");
     map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 5); //初始显示中国。
     map.enableScrollWheelZoom();//滚轮放大缩小
@@ -271,7 +296,6 @@
 
     var uName = [];
     var clName = [];
-
     var markers = [];
 
     setTimeout(location1, 1000);//动态生成新的点。
