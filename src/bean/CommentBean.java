@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.LinkedList;
+
 public class CommentBean {
 
     private String username;
@@ -7,8 +9,10 @@ public class CommentBean {
     private String datetime;
     private String content;
     private int countLike;
+    private LinkedList<String> urls;
 
     public CommentBean(String username, String name, String content, String datetime, int countLike) {
+        urls = new LinkedList<>();
         setUsername(username);
         setName(name);
         setContent(content);
@@ -54,5 +58,18 @@ public class CommentBean {
 
     public void setCountLike(int countLike) {
         this.countLike = countLike;
+    }
+
+
+    public LinkedList<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(LinkedList<String> urls) {
+        this.urls = urls;
+    }
+
+    public void addUrl(String url) {
+        getUrls().add(url);
     }
 }

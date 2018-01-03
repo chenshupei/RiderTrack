@@ -239,11 +239,12 @@ public class ActivityDaoImpl implements ActivityDao {
         LinkedList<CommentBean> commentBeans = new LinkedList<>();
         connection = dbUtil.getConnection();
         String sql = "SELECT\n" +
+                "  upd.update_id,\n" +
                 "  usr.user_name,\n" +
                 "  usr.name,\n" +
                 "  content,\n" +
                 "  CASE\n" +
-                "  WHEN date_add(date_time, INTERVAL 1 MINUTE) > current_timestamp\n" +
+                "  WHEN date_add(date_time, INTERVAL 2 MINUTE) > current_timestamp\n" +
                 "    THEN 'Just now'\n" +
                 "  WHEN date_add(date_time, INTERVAL 3 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 2 MINUTE)\n" +
                 "    THEN '1 minute ago'\n" +
@@ -275,20 +276,34 @@ public class ActivityDaoImpl implements ActivityDao {
                 "    THEN DATE_FORMAT(date_time, '%m-%d')\n" +
                 "  ELSE date_format(date_time, '%y')\n" +
                 "  END as that_time,\n" +
-                "  cnt_like\n" +
+                "  cnt_like,\n" +
+                "  photo_url\n" +
                 "FROM updates upd\n" +
                 "  JOIN user_info usr ON upd.user_name = usr.user_name\n" +
+                "  LEFT JOIN photos_in_update p ON upd.update_id = p.update_id\n" +
                 "WHERE activity_id = ?\n" +
                 "ORDER BY date_time DESC";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, activityID);
         resultSet = preparedStatement.executeQuery();
+        int lastID = -1;
+        int currentID = -1;
         while (resultSet.next()) {
+            currentID = Integer.parseInt(resultSet.getString("update_id"));
+            if (lastID == currentID) {
+                commentBeans.get(commentBeans.size() - 1).addUrl(resultSet.getString("photo_url"));
+            }
             commentBeans.add(new CommentBean(resultSet.getString("user_name"),
                     resultSet.getString("name"),
                     resultSet.getString("content"),
                     resultSet.getString("that_time"),
                     resultSet.getInt("cnt_like")));
+            String url;
+            url = resultSet.getString("photo_url");
+            if (url != null) {
+                commentBeans.get(commentBeans.size() - 1).addUrl(url);
+            }
+            lastID = currentID;
         }
         return commentBeans;
     }

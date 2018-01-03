@@ -48,9 +48,10 @@ public class GiveCommentsServlet extends HttpServlet {
                     comment = item.getString();
                     continue;
                 }
-                String path = "D:\\workspace\\TestGit2\\pic\\" + activity_id + username + new SimpleDateFormat("yyyymmddHHmmss").format(new Date()) + count + ".png";
+                String path = "E:\\photos\\" + activity_id + username + new SimpleDateFormat("yyyymmddHHmmss").format(new Date()) + count + ".png";
                 File file = new File(path);
-                urls.add(path);
+                String readPath = "pic/" + activity_id + username + new SimpleDateFormat("yyyymmddHHmmss").format(new Date()) + count + ".png";
+                urls.add(readPath);
                 item.write(file);
                 count++;
             }

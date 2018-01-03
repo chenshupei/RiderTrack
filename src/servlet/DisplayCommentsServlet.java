@@ -21,6 +21,7 @@ public class DisplayCommentsServlet extends HttpServlet {
         System.out.println("In DisplayCommentsServlet!");
         ActivityService activityService = new ActivityServiceImpl();
         String json = activityService.getComments(Integer.parseInt((String)request.getSession().getAttribute("activity_id")));
+        System.out.println(json);
         out.print(json);
         out.flush();
     }

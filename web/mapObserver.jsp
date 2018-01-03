@@ -1,121 +1,230 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: computer
-  Date: 2017/12/20
-  Time: 21:47
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+<%--<!DOCTYPE html>--%>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="js/jquery.form.js"></script>
+    <link href="css/my-css.css" rel="stylesheet">
+    <link href="css/map.css" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Hello, World</title>
     <style type="text/css">
-        body, html, #allmap {
-            width: 100%;
+        html {
+            height: 100%
+        }
+
+        body {
             height: 100%;
-            overflow: hidden;
-            margin: 0;
-            font-family: "微软雅黑", serif;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            height: 100%;
+            margin: 20px;
+        }
+
+        p{
+            word-break:break-all;
+        }
+
+        .comment-pic{
+            margin-left:50px;
+            max-height: 150px;
         }
     </style>
-    <script type="text/javascript"
-            src="http://api.map.baidu.com/api?v=2.0&ak=0mxjSf6gGLHKmRoyuRCVl9OEklpcITq6"></script>
-    <title>折线上添加方向箭头</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/map.css" rel="stylesheet">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=YWdGplhYjUGQ3GtpKNeuTM2S"></script>
 </head>
+
 <body>
-<div id="allmap"></div>
-</body>
-</html>
+
+<nav class="navbar navbar-default nav-justified navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a href="#">close&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+            </ul>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Activity name</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <%--<button class="btn btn-primary" data-toggle="onComment" data-target="#myModal"><span class="glyphicon glyphicon-content" aria-hidden="true"></span>content</button>--%>
+                <%--<li><button class="btn btn-primary"  data-toggle="onComment" data-target="#myModal">content&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button></li>--%>
+                <li>
+                    <button class="btn btn-primary" onclick='onComment()' style="position:absolute; margin-top:8px;">
+                        comments&nbsp;<span class="glyphicon glyphicon-content" aria-hidden="true"></span></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- 模态框（Modal） -->
+<div id="modal-overlay">
+    <div class="modal-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" onclick='onComment()' class="close">
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    COMMENT
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row pre-scrollable">
+                    <table class="table table-hover">
+                        <tbody id="table">
+                        <tr>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah!
+                                hahaha!
+                            </td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha!
+                            </td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
+                                Hahaha! Good activity! I love it!
+                            </td>
+                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form id="ajax_form" class="ajax_form" name="ajax_form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="comment_text"
+                               placeholder="What do you want to comment" name="comment"></div>
+
+                    <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" style="display:none" name="file">
+                    <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
+
+                </form>
+            </div>
+        </div><!-- /.onComment-content -->
+    </div><!-- /.onComment -->
+</div>
+
+
+<div id="container"></div>
 <script type="text/javascript">
-    // 百度地图API功能
-    var map = new BMap.Map("allmap");    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 14);  // 初始化地图,设置中心点坐标和地图级别
-    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-    var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
-        scale: 0.6,//图标缩放大小
-        strokeColor: '#fff',//设置矢量图标的线填充颜色
-        strokeWeight: '2'//设置线宽
-    });
-    var lastUpdate = "1000-00-00 00:00:00";
 
-    window.setInterval(ajax, 5000);
-
-    var icons = new BMap.IconSequence(sy, '10', '30');
-    // 创建polyline对象
-    var pois = [
-        new BMap.Point(116.350658, 39.938285),
-        new BMap.Point(116.386446, 39.939281),
-        new BMap.Point(116.389034, 39.913828),
-        new BMap.Point(116.442501, 39.914603)
-    ];
-
-    var x = 116.331398;
-    var y = 39.897445;
-
-    var polyline = new BMap.Polyline(pois, {
-        enableEditing: false,//是否启用线编辑，默认为false
-        enableClicking: true,//是否响应点击事件，默认为true
-        icons: [icons],
-        strokeWeight: '8',//折线的宽度，以像素为单位
-        strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
-        strokeColor: "#18a45b" //折线颜色
-    });
-
-    map.addOverlay(polyline);          //增加折线
-    var marker = new BMap.Marker(new BMap.Point(116.442501, 39.914603));
-    map.addOverlay(marker);
-
-    function ajax() {
-
-        console.log("Enter ajax");
-
-        if (window.ActiveXObject) { //IE浏览器
-
-            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-
-        }
-        else if (window.XMLHttpRequest) { //非IE浏览器
-
-            xmlHttpRequest = new XMLHttpRequest;
-        }
-
-        if (null !== xmlHttpRequest) {
-
-
-            xmlHttpRequest.open("GET", "AjaxServlet?lastUpdate=" + lastUpdate, true);
-
-            //Ajax的回调函数
-            xmlHttpRequest.onreadystatechange = ajaxCallBack;
-
-            //采用POST提交要设置请求头参数
-            xmlHttpRequest.setRequestHeader("Content-type",
-                "application/x-www-form-urlencoded");
-
-            xmlHttpRequest.send(); //真正的发送请求
-        }
+    function onSubmit() {
+//        $.ajax({
+//            url:"GiveCommentsServlet",//提交地址
+//            data:$("#ajax_form").serialize(),//将表单数据序列化
+//            type:"POST",
+//            dataType:"json",
+//            contentType:"application/x-www-form-urlencoded",
+//            success:function(result){
+//                if (result === 1) {
+//                    console.log(result);
+//                    document.getElementById('comment_text').value = "";
+//                } else {
+//                    alert("Comment failed!")
+//                }
+//                refresh();
+//            }
+//        });
+        $("#ajax_form").ajaxSubmit(
+            {
+                url: "GiveCommentsServlet",
+                type: "post",
+                dataType: "json",
+                contentType:"application/x-www-form-urlencoded",
+                success : function (data) {
+                    document.getElementById('comment_text').value = "";
+                    refresh();
+                }
+            }
+        );
     }
 
 
-    //Ajax的回调函数
-    function ajaxCallBack() {
+    function onComment() {
+        var e1 = document.getElementById('modal-overlay');
+        e1.style.visibility = (e1.style.visibility === "visible") ? "hidden" : "visible";
+        refresh();
+    }
 
-        if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
-
-            if (xmlHttpRequest.status === 200) {
-
-                // Download (x, y) as well as bean of each participant.
-                var responseText = xmlHttpRequest.responseText;
-                var json = JSON.parse(responseText);
-                lastUpdate = getNowFormatDate();
-                plotLines(json);
+    function refresh() {
+        $.ajax({
+            url: "DisplayCommentsServlet",//提交地址
+            type: "GET",
+            success: function (jsonString) {
+                displayComments(jsonString)
             }
-            else {
-                alert("Server error!");
-            }
+        });
+    }
 
+    function displayComments(jsonString) {
+        var json = JSON.parse(jsonString);
+        console.log(json);
+        $("#table").text("");
+        for (var i = 0; i <= json.length - 1; i++) {
+            addRaw(json[i]);
         }
+    }
+
+    function addRaw(commentObj) {
+
+        var imgStr = "";
+        for (var i = 0; i < commentObj.urls.length; i++) {
+            imgStr += "<img class='img-thumbnail comment-pic' src='" + commentObj.urls[i] + "'/>";
+        }
+        $("#table").append("<tr><td class='comment-td' align='left'><p><b>" + commentObj.myName + "</b>: " + commentObj.content +
+            "</p><span>"+imgStr+"</span><p style='text-align: right;font-size:small; color: #002a80;'>" + commentObj.datetime + "</P>");
+        console.log(imgStr);
+    }
+
+    function getRandomColor() {
+        return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
+    }
+
+    function uploadLocation() {
+        $.ajax(
+            {
+                url: "AjaxServlet",
+                type: "GET",
+                dataType: "json",
+                data: {lastUpdate: lastUpdate},
+                success: function (json) {
+                    lastUpdate = getNowFormatDate();
+                    plotLines(json);
+                }
+            }
+        );
     }
 
 
@@ -138,54 +247,60 @@
 
     function plotLines(json) {
         for (var k in json) {
+            console.log(json[k].username);
+            var name = json[k].username;
+            if (uName.indexOf(name) === -1) {
+                uName.push(name);
+                clName.push(getRandomColor());
+                markers.push(null);
+            }
             var points = json[k].positions;
             var pointsBD = [];
             for (var i = 0; i < points.length; i++) {
                 pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
             }
 
-//            var polyline = new BMap.Polyline(pointsBD, {
-//                enableEditing: false,//是否启用线编辑，默认为false
-//                enableClicking: true,//是否响应点击事件，默认为true
-//                icons: [icons],
-//                strokeWeight: '8',//折线的宽度，以像素为单位
-//                strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
-//                strokeColor: "#18a45b" //折线颜色
-//            });
-
-//            console.log(pointsBD);
-
-//            map.addOverlay(polyline);          //增加折线
-
-            var icons = new BMap.IconSequence(sy, '10', '30');
-            // 创建polyline对象
-            var pois = [
-                new BMap.Point(116.350658, 39.938285),
-                new BMap.Point(116.386446, 39.939281),
-                new BMap.Point(116.389034, 39.913828),
-                new BMap.Point(116.442501, 39.914603)
-            ];
-//            console.log("standard");
-//            console.log(pois);
-//            console.log("my");
-            console.log(pointsBD);
-
             var polyline = new BMap.Polyline(pointsBD, {
                 enableEditing: false,//是否启用线编辑，默认为false
                 enableClicking: true,//是否响应点击事件，默认为true
-                icons: [icons],
-                strokeWeight: '8',//折线的宽度，以像素为单位
+                strokeWeight: '2',//折线的宽度，以像素为单位
                 strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
-                strokeColor: "#18a45b" //折线颜色
+                strokeColor: clName[uName.indexOf(name)] //折线颜色
             });
 
+            if (markers[uName.indexOf(name)] === null) {
+                markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+                map.addOverlay(markers[uName.indexOf(name)]);
+                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+            } else {
+                markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
+                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+            }
+
             map.addOverlay(polyline);          //增加折线
-            var marker = new BMap.Marker(new BMap.Point(116.442501, 39.914603));
-            map.addOverlay(marker);
-
-
         }
 
     }
 
+    function location1() {
+        uploadLocation();
+
+        setTimeout(location1, 2000);
+    }
+
+    var map = new BMap.Map("container");
+    map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 5); //初始显示中国。
+    map.enableScrollWheelZoom();//滚轮放大缩小
+
+    var lastUpdate = "1000-00-00 00:00:00";
+
+    var x;
+    var y;
+
+    var uName = [];
+    var clName = [];
+
+    var markers = [];
+
+    setTimeout(location1, 1000);//动态生成新的点。
 </script>

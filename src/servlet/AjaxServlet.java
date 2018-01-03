@@ -21,7 +21,6 @@ public class AjaxServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         ActivityService activityService = new ActivityServiceImpl();
-        String username = (String) request.getSession().getAttribute("username");
         String activityID = (String) request.getSession().getAttribute("activity_id");
         String lastUpdate = request.getParameter("lastUpdate");
         System.out.println(lastUpdate);
