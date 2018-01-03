@@ -31,7 +31,7 @@
 
 <nav class="navbar navbar-default nav-justified navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-        <div class="pull-right">
+        <div class="navbar-right">
             <ul class="nav navbar-nav">
                 <li><a href="#">close&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
             </ul>
