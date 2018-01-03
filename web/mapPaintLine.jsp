@@ -4,7 +4,6 @@
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
     <link href="css/my-css.css" rel="stylesheet">
-    <title>Map</title>
     <link href="css/map.css" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -23,6 +22,15 @@
         #container {
             height: 100%;
             margin: 20px;
+        }
+
+        p{
+            word-break:break-all;
+        }
+
+        .comment-pic{
+            margin-left:50px;
+            max-height: 150px;
         }
     </style>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -190,9 +198,14 @@
     }
 
     function addRaw(commentObj) {
-        var string = commentObj.myName + ": " + commentObj.content + "@" + commentObj.datetime;
-        console.log(string);
-        $("#table").append("<tr><td align='left'><b>" + commentObj.myName + "</b>: " + commentObj.content + "</td><td align='right'>" + commentObj.datetime + "</td></tr>");
+
+        var imgStr = "";
+        for (var i = 0; i < commentObj.urls.length; i++) {
+            imgStr += "<img class='img-thumbnail comment-pic' src='" + commentObj.urls[i] + "'/>";
+        }
+        $("#table").append("<tr><td class='comment-td' align='left'><p><b>" + commentObj.myName + "</b>: " + commentObj.content +
+            "</p><span>"+imgStr+"</span><p style='text-align: right;font-size:small; color: #002a80;'>" + commentObj.datetime + "</P>");
+        console.log(imgStr);
     }
 
     function getRandomColor() {
