@@ -1,12 +1,12 @@
 <%--<!DOCTYPE html>--%>
 <html>
 <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
     <link href="css/my-css.css" rel="stylesheet">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Hello, World</title>
+    <title>Map</title>
     <style type="text/css">
         html {
             height: 100%
@@ -70,41 +70,9 @@
                     <table class="table table-hover">
                         <tbody id="table">
                         <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah!
-                                hahaha!
+                            <td class="content-td"><b>No comments...</b>
                             </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>
@@ -115,9 +83,9 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="comment_text"
                                                    placeholder="What do you want to comment" name="comment"></div>
-
+                    <span id="filename" style="vertical-align: middle;font-size: small;color: #00699c;font-weight: lighter">没有图片</span>
                     <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
-                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" style="display:none" name="file">
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" style="display:none" name="file" onchange="loadFile(this.files[0])" >
                     <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
 
                 </form>
@@ -129,6 +97,11 @@
 
 <div id="container"></div>
 <script type="text/javascript">
+
+    //显示文件名
+    function loadFile(file){
+        $$("#filename").html(file.name);
+    }
 
     function onSubmit() {
 //        $.ajax({
@@ -234,6 +207,7 @@
         for (var k in json) {
             console.log(json[k].username);
             var name = json[k].username;
+            var infoWindow = new BMap.InfoWindow(name);  // 创建信息窗口对象
             if (uName.indexOf(name) === -1) {
                 uName.push(name);
                 clName.push(getRandomColor());
@@ -256,10 +230,13 @@
             if (markers[uName.indexOf(name)] === null) {
                 markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
                 map.addOverlay(markers[uName.indexOf(name)]);
-                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+//                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+                markers[uName.indexOf(name)].addEventListener("click", function(){
+                    map.openInfoWindow(infoWindow,pointsBD[pointsBD.length - 1]); //开启信息窗口
+                });
             } else {
                 markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
-                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+//                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
             }
 
             map.addOverlay(polyline);          //增加折线
