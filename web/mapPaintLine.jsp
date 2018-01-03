@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%--<!DOCTYPE html>--%>
 <html>
 <head>
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
@@ -124,6 +123,7 @@
 
 <div id="container"></div>
 <script type="text/javascript">
+
     function onSubmit() {
         $.ajax({
             url:"GiveCommentsServlet",//提交地址
@@ -141,7 +141,6 @@
                 refresh();
             }
         });
-
     }
 
 
@@ -180,57 +179,19 @@
         return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
     }
 
-    function ajax() {
-
-        console.log("Enter ajax");
-
-        if (window.ActiveXObject) { //IE浏览器
-
-            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-
-        }
-        else if (window.XMLHttpRequest) { //非IE浏览器
-
-            xmlHttpRequest = new XMLHttpRequest;
-        }
-
-        if (null !== xmlHttpRequest) {
-
-            var v1 = x;
-            var v2 = y;
-
-            //采用POST提交
-            xmlHttpRequest.open("POST", "AjaxServlet", true);
-
-            //Ajax的回调函数
-            xmlHttpRequest.onreadystatechange = ajaxCallBack;
-
-            //采用POST提交要设置请求头参数
-            xmlHttpRequest.setRequestHeader("Content-type",
-                "application/x-www-form-urlencoded");
-            xmlHttpRequest.send("v1=" + v1 + "&v2=" + v2 + "&lastUpdate=" + lastUpdate);//真正的发送请求
-        }
-    }
-
-
-    //Ajax的回调函数
-    function ajaxCallBack() {
-
-        if (xmlHttpRequest.readyState === 4) { //Ajax引擎4个阶段，4为最后一个阶段
-
-            if (xmlHttpRequest.status === 200) {
-
-                // Download (x, y) as well as bean of each participant.
-                var responseText = xmlHttpRequest.responseText;
-                var json = JSON.parse(responseText);
-                lastUpdate = getNowFormatDate();
-                plotLines(json);
+    function uploadLocation() {
+        $.ajax(
+            {
+                url: "AjaxServlet",
+                type: "POST",
+                dataType: "json",
+                data: {v1: x, v2: y, lastUpdate: lastUpdate},
+                success: function (json) {
+                    lastUpdate = getNowFormatDate();
+                    plotLines(json);
+                }
             }
-            else {
-                alert("Server error!");
-            }
-
-        }
+        );
     }
 
 
@@ -293,7 +254,7 @@
             if (this.getStatus() === BMAP_STATUS_SUCCESS) {
                 x = r.point.lng;
                 y = r.point.lat;
-                ajax();
+                uploadLocation();
             }
             else {
                 alert('failed' + this.getStatus());
