@@ -31,7 +31,7 @@
 
 <nav class="navbar navbar-default nav-justified navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-        <div class="pull-right">
+        <div class="navbar-right">
             <ul class="nav navbar-nav">
                 <li><a href="#">close&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
             </ul>
@@ -111,9 +111,14 @@
             </div>
             <div class="modal-footer">
                 <form id="ajax_form" class="ajax_form" name="ajax_form">
-                    <div class="form-group"><input type="text" class="form-control" id="comment_text"
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="comment_text"
                                                    placeholder="What do you want to comment" name="comment"></div>
-                    <input type="button" class="btn_submit" onclick="onSubmit()" value="submit"/>
+
+                    <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" onchange="loadFile(this.files[0])" style="display:none" >
+                    <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
+
                 </form>
             </div>
         </div><!-- /.onComment-content -->
