@@ -55,6 +55,7 @@ public class GiveCommentsServlet extends HttpServlet {
                 count++;
             }
         } catch (Exception e) {
+            comment = request.getParameter("comment");
             e.printStackTrace();
         }
 

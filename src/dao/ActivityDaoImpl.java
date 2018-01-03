@@ -238,16 +238,57 @@ public class ActivityDaoImpl implements ActivityDao {
     public LinkedList<CommentBean> getComments(int activityID) throws Exception {
         LinkedList<CommentBean> commentBeans = new LinkedList<>();
         connection = dbUtil.getConnection();
-        String sql = "SELECT usr.user_name, usr.name, content, DATE_FORMAT(date_time, '%H:%i') that_time, cnt_like FROM updates upd JOIN user_info usr ON upd.user_name = usr.user_name WHERE activity_id = ? ORDER BY date_time DESC";
+        String sql = "SELECT\n" +
+                "  usr.user_name,\n" +
+                "  usr.name,\n" +
+                "  content,\n" +
+                "  CASE\n" +
+                "  WHEN date_add(date_time, INTERVAL 1 MINUTE) > current_timestamp\n" +
+                "    THEN 'Just now'\n" +
+                "  WHEN date_add(date_time, INTERVAL 3 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 2 MINUTE)\n" +
+                "    THEN '1 minute ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 4 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 3 MINUTE)\n" +
+                "    THEN '2 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 5 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 4 MINUTE)\n" +
+                "    THEN '3 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 6 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 5 MINUTE)\n" +
+                "    THEN '4 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 7 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 6 MINUTE)\n" +
+                "    THEN '5 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 8 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 7 MINUTE)\n" +
+                "    THEN '6 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 9 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 8 MINUTE)\n" +
+                "    THEN '7 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 12 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 9 MINUTE)\n" +
+                "    THEN '10 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 17 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 12 MINUTE)\n" +
+                "    THEN '15 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 25 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 17 MINUTE)\n" +
+                "    THEN '20 minutes ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 40 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 25 MINUTE)\n" +
+                "    THEN 'Half hour ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 70 MINUTE) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 40 MINUTE)\n" +
+                "    THEN '1 hour ago'\n" +
+                "  WHEN date_add(date_time, INTERVAL 24 HOUR) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 70 MINUTE)\n" +
+                "    THEN DATE_FORMAT(date_time, '%H:%i')\n" +
+                "  WHEN date_add(date_time, INTERVAL 12 MONTH) > current_timestamp AND current_timestamp > date_add(date_time, INTERVAL 24 HOUR)\n" +
+                "    THEN DATE_FORMAT(date_time, '%m-%d')\n" +
+                "  ELSE date_format(date_time, '%y')\n" +
+                "  END as that_time,\n" +
+                "  cnt_like\n" +
+                "FROM updates upd\n" +
+                "  JOIN user_info usr ON upd.user_name = usr.user_name\n" +
+                "WHERE activity_id = ?\n" +
+                "ORDER BY date_time DESC";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, activityID);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             commentBeans.add(new CommentBean(resultSet.getString("user_name"),
-                                             resultSet.getString("name"),
-                                             resultSet.getString("content"),
-                                             resultSet.getString("that_time"),
-                                             resultSet.getInt("cnt_like")));
+                    resultSet.getString("name"),
+                    resultSet.getString("content"),
+                    resultSet.getString("that_time"),
+                    resultSet.getInt("cnt_like")));
         }
         return commentBeans;
     }
