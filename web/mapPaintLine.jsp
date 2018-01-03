@@ -116,7 +116,7 @@
                                                    placeholder="What do you want to comment" name="comment"></div>
 
                     <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
-                    <input type="file" id="file-input" onchange="loadFile(this.files[0])" style="display:none" >
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" onchange="loadFile(this.files[0])" style="display:none" >
                     <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
 
                 </form>
