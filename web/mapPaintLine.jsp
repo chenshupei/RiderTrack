@@ -172,7 +172,7 @@
     function addRaw(commentObj) {
         var string = commentObj.myName + ": " + commentObj.content + "@" + commentObj.datetime;
         console.log(string);
-        $("#table").append("<tr><td>" + string + "</td></tr>");
+        $("#table").append("<tr><td align='left'><b>" + commentObj.myName + "</b>: " + commentObj.content + "</td><td align='right'>" + commentObj.datetime + "</td></tr>");
     }
 
     function getRandomColor() {
