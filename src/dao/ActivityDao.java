@@ -29,7 +29,7 @@ public interface ActivityDao {
 
     Map<String, UserPosition> getActivityLocations(int activityID, String lastUpdate) throws Exception;
 
-    int addComments(int activityID, String username, String comments) throws Exception;
+    int addComments(int activityID, String username, String comments, LinkedList<String> urls) throws Exception;
 
     LinkedList<CommentBean> getComments(int activityID) throws Exception;
 }

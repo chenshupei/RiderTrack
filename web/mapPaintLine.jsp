@@ -2,6 +2,7 @@
 <html>
 <head>
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="js/jquery.form.js"></script>
     <link href="css/my-css.css" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -116,7 +117,7 @@
                                                    placeholder="What do you want to comment" name="comment"></div>
 
                     <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
-                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" onchange="loadFile(this.files[0])" style="display:none" >
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" style="display:none" name="file">
                     <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
 
                 </form>
@@ -130,22 +131,34 @@
 <script type="text/javascript">
 
     function onSubmit() {
-        $.ajax({
-            url:"GiveCommentsServlet",//提交地址
-            data:$("#ajax_form").serialize(),//将表单数据序列化
-            type:"POST",
-            dataType:"json",
-            contentType:"application/x-www-form-urlencoded",
-            success:function(result){
-                if (result === 1) {
-                    console.log(result);
+//        $.ajax({
+//            url:"GiveCommentsServlet",//提交地址
+//            data:$("#ajax_form").serialize(),//将表单数据序列化
+//            type:"POST",
+//            dataType:"json",
+//            contentType:"application/x-www-form-urlencoded",
+//            success:function(result){
+//                if (result === 1) {
+//                    console.log(result);
+//                    document.getElementById('comment_text').value = "";
+//                } else {
+//                    alert("Comment failed!")
+//                }
+//                refresh();
+//            }
+//        });
+        $("#ajax_form").ajaxSubmit(
+            {
+                url: "GiveCommentsServlet",
+                type: "post",
+                dataType: "json",
+                contentType:"application/x-www-form-urlencoded",
+                success : function (data) {
                     document.getElementById('comment_text').value = "";
-                } else {
-                    alert("Comment failed!")
+                    refresh();
                 }
-                refresh();
             }
-        });
+        );
     }
 
 

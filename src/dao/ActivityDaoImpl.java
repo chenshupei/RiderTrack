@@ -9,6 +9,7 @@ import util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ActivityDaoImpl implements ActivityDao {
@@ -199,14 +200,37 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
-    public int addComments(int activityID, String username, String comments) throws Exception {
+    public int addComments(int activityID, String username, String comments, LinkedList<String> urls) throws Exception {
         connection = dbUtil.getConnection();
-        String sql = "INSERT INTO updates (user_name, activity_id, content, date_time) VALUES (?, ?, ?, CURRENT_TIMESTAMP )";
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        String sql = "INSERT INTO updates (user_name, activity_id, content, date_time) VALUES (?, ?, ?, ? )";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, username);
         preparedStatement.setInt(2, activityID);
         preparedStatement.setString(3, comments);
+        preparedStatement.setString(4, timeStamp);
         int result = preparedStatement.executeUpdate();
+        if (urls.size() == 0) {
+            return result;
+        }
+        String sql2 = "SELECT update_id FROM updates WHERE user_name = ? AND activity_id = ? AND date_time = ?";
+        preparedStatement = connection.prepareStatement(sql2);
+        preparedStatement.setString(1, username);
+        preparedStatement.setInt(2, activityID);
+        preparedStatement.setString(3, timeStamp);
+        resultSet = preparedStatement.executeQuery();
+        int updateID = -1;
+        while (resultSet.next()) {
+            updateID = resultSet.getInt("update_id");
+        }
+        String sql3;
+        for (String url : urls) {
+            sql3 = "INSERT INTO photos_in_update (update_id, photo_url) VALUES (?, ?)";
+            preparedStatement = connection.prepareStatement(sql3);
+            preparedStatement.setInt(1, updateID);
+            preparedStatement.setString(2, url);
+            result *= preparedStatement.executeUpdate();
+        }
         return result;
     }
 

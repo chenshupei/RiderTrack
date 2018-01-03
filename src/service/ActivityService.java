@@ -2,6 +2,7 @@ package service;
 
 import bean.ActivityBean;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -25,7 +26,7 @@ public interface ActivityService {
 
     String getActivityLocations(int activityID, String lastUpdate);
 
-    int addComments(int activityID, String username, String comments);
+    int addComments(int activityID, String username, String comments, LinkedList<String> urls);
 
     String getComments(int activityID);
 }

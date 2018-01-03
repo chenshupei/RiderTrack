@@ -119,10 +119,10 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public int addComments(int activityID, String username, String comments) {
+    public int addComments(int activityID, String username, String comments, LinkedList<String> urls) {
         int result = 0;
         try {
-            result = activityDao.addComments(activityID, username, comments);
+            result = activityDao.addComments(activityID, username, comments, urls);
         } catch (Exception e) {
             e.printStackTrace();
         }
