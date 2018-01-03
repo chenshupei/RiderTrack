@@ -111,9 +111,14 @@
             </div>
             <div class="modal-footer">
                 <form id="ajax_form" class="ajax_form" name="ajax_form">
-                    <div class="form-group"><input type="text" class="form-control" id="comment_text"
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="comment_text"
                                                    placeholder="What do you want to comment" name="comment"></div>
-                    <input type="button" class="btn_submit" onclick="onSubmit()" value="submit"/>
+
+                    <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
+                    <input type="file" id="file-input" onchange="loadFile(this.files[0])" style="display:none" >
+                    <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
+
                 </form>
             </div>
         </div><!-- /.onComment-content -->
