@@ -285,7 +285,7 @@
 
             map.addOverlay(polyline);          //增加折线
         }
-        if (isSetzoom === 50000) {
+        if (isSetzoom === 8) {
             setZoom(allPoints);
             console.log('setzoom');
             isSetzoom = 0;
@@ -328,7 +328,7 @@
 
 
     var allPoints = [];
-    var isSetzoom = 5;
+    var isSetzoom = 8;
     var map = new BMap.Map("container");
     map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 5); //初始显示中国。
     map.enableScrollWheelZoom();//滚轮放大缩小
