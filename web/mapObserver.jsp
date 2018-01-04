@@ -39,16 +39,20 @@
 </head>
 
 <body>
+    <%
+    String current_username = (String) session.getAttribute("username");
+    String current_name = (String) session.getAttribute("name");
+%>
 
 <nav class="navbar navbar-default nav-justified navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="#">close&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+                <li><a  onClick="history.back(-1);">close&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
             </ul>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Activity name</a>
+            <a class="navbar-brand" href="#">Activity</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
@@ -80,41 +84,8 @@
                     <table class="table table-hover">
                         <tbody id="table">
                         <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it! yeah! hahaha! Hahaha! Good activity! I love it! yeah!
-                                hahaha!
+                            <td class="content-td"><b>No comment...</b>
                             </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="content-td"><b>LiuSitong:</b> Hahaha! Good activity! I love it! yeah! hahaha!
-                                Hahaha! Good activity! I love it!
-                            </td>
-                            <td><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></td>
                         </tr>
                         </tbody>
                     </table>
@@ -125,9 +96,10 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="comment_text"
                                placeholder="What do you want to comment" name="comment"></div>
-
+                    <span id="filename"
+                          style="vertical-align: middle;font-size: small;color: #00699c;font-weight: lighter">No picture</span>
                     <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
-                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="file-input" style="display:none" name="file">
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png"  onchange="loadFile(this.files[0])" id="file-input" style="display:none" name="file">
                     <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
 
                 </form>
@@ -139,7 +111,10 @@
 
 <div id="container"></div>
 <script type="text/javascript">
-
+    //显示文件名
+    function loadFile(file) {
+        $("#filename").html(file.name);
+    }
     function onSubmit() {
 //        $.ajax({
 //            url:"GiveCommentsServlet",//提交地址
@@ -165,6 +140,7 @@
                 contentType:"application/x-www-form-urlencoded",
                 success : function (data) {
                     document.getElementById('comment_text').value = "";
+                    $("#filename").html("No picture");
                     refresh();
                 }
             }
@@ -245,19 +221,79 @@
             + seperator2 + date.getSeconds();
     }
 
+    //    function plotLines(json) {
+    //        for (var k in json) {
+    //            console.log(json[k].username);
+    //            var name = json[k].username;
+    //            if (uName.indexOf(name) === -1) {
+    //                uName.push(name);
+    //                clName.push(getRandomColor());
+    //                markers.push(null);
+    //            }
+    //            var points = json[k].positions;
+    //            var pointsBD = [];
+    //            for (var i = 0; i < points.length; i++) {
+    //                pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
+    //                allPoints.push(new BMap.Point(points[i][0], points[i][1]));
+    //            }
+    //
+    //            var polyline = new BMap.Polyline(pointsBD, {
+    //                enableEditing: false,//是否启用线编辑，默认为false
+    //                enableClicking: true,//是否响应点击事件，默认为true
+    //                strokeWeight: '2',//折线的宽度，以像素为单位
+    //                strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
+    //                strokeColor: clName[uName.indexOf(name)] //折线颜色
+    //            });
+    //
+    //            if (markers[uName.indexOf(name)] === null) {
+    //                markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+    //                map.addOverlay(markers[uName.indexOf(name)]);
+    //                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+    //            } else {
+    //                markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
+    //                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+    //            }
+    //
+    //            map.addOverlay(polyline);          //增加折线
+    //        }
+    //
+    //        if (isSetzoom === 5) {
+    //            setZoom(allPoints);
+    //            console.log('setzoom');
+    //            isSetzoom = 0;
+    //        }
+    //        isSetzoom++;
+    //
+    //    }
+
     function plotLines(json) {
+//        console.log(json);
+        var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(250, 120));
         for (var k in json) {
-            console.log(json[k].username);
+//            console.log(json[k].username);
             var name = json[k].username;
+            var myname = json[k].name;
             if (uName.indexOf(name) === -1) {
                 uName.push(name);
                 clName.push(getRandomColor());
                 markers.push(null);
+                var title = name + "(" + myname + ")";
+                var opts = {
+                    title: title, // 信息窗口标题
+                    enableMessage: true//设置允许信息窗发送短息
+                };
+                var content = "email:" + json[k].email;
+                infoWindows.push(new BMap.InfoWindow(content, opts));
             }
+
+//            var infoWindow = new BMap.InfoWindow(name + json[k].email);  // 创建信息窗口对象
+//            var inforWindow = new BMap.InfoWindow("<h4 style='margin:0 0 5px 0;padding:0.2em 0'>天安门</h4>" + "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>地点：南方科技大学</p>" + "</div>");
+//            console.log(title);
             var points = json[k].positions;
             var pointsBD = [];
             for (var i = 0; i < points.length; i++) {
                 pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
+                allPoints.push(new BMap.Point(points[i][0], points[i][1]));
             }
 
             var polyline = new BMap.Polyline(pointsBD, {
@@ -268,26 +304,78 @@
                 strokeColor: clName[uName.indexOf(name)] //折线颜色
             });
 
+//            if (markers[uName.indexOf(name)] === null) {
+//                markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+//                map.addOverlay(markers[uName.indexOf(name)]);
+////                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+//                markers[uName.indexOf(name)].addEventListener("click", function () {
+////                    console.log(name + "   " + title);
+////                    console.log(markers);
+//                    this.openInfoWindow(infoWindows[markers.indexOf(this)]); //开启信息窗口
+//                });
+//            } else {
+//                markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
+////                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+////                map.addOverlay(markers[uName.indexOf(name)]);
+//            }
+
             if (markers[uName.indexOf(name)] === null) {
-                markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
-                map.addOverlay(markers[uName.indexOf(name)]);
-                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+                <%--console.log(name === "<%=current_username%>");--%>
+                if (name === "<%=current_username%>") {
+                    markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+                    markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+                    map.addOverlay(markers[uName.indexOf(name)]);
+                    markers[uName.indexOf(name)].addEventListener("click", function () {
+                        this.openInfoWindow(infoWindows[markers.indexOf(this)]); //开启信息窗口
+                    });
+                } else {
+                    markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
+                    map.addOverlay(markers[uName.indexOf(name)]);
+                    markers[uName.indexOf(name)].addEventListener("click", function () {
+                        this.openInfoWindow(infoWindows[markers.indexOf(this)]); //开启信息窗口
+                    });
+                }
             } else {
-                markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
-                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
+                <%--console.log(name === "<%=current_username%>");--%>
+                if (name === "<%=current_username%>") {
+                    markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
+                    map.addOverlay(markers[uName.indexOf(name)]);
+                } else {
+                    markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
+                }
             }
 
             map.addOverlay(polyline);          //增加折线
         }
+        if (isSetzoom === 5) {
+            setZoom(allPoints);
+            console.log('setzoom');
+            isSetzoom = 0;
+        }
+        isSetzoom++;
 
     }
+
+
+    //根据点信息实时更新地图显示范围，让轨迹完整显示。设置新的中心点和显示级别.
+    //更新。设置不是每次增加点都重新设置显示范围。因为有可能会想放大了看。
+    function setZoom(bPoints) {
+        var view = map.getViewport(eval(bPoints));
+        var mapZoom = view.zoom;
+        var centerPoint = view.center;
+        map.centerAndZoom(centerPoint, mapZoom);
+        map.oldView = JSON.stringify(view);
+    }
+
 
     function location1() {
         uploadLocation();
-
         setTimeout(location1, 2000);
     }
 
+
+    var allPoints = [];
+    var isSetzoom = 5;
     var map = new BMap.Map("container");
     map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 5); //初始显示中国。
     map.enableScrollWheelZoom();//滚轮放大缩小
@@ -301,6 +389,7 @@
     var clName = [];
 
     var markers = [];
+    var infoWindows = [];
 
     setTimeout(location1, 1000);//动态生成新的点。
 </script>

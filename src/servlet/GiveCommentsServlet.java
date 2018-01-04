@@ -38,7 +38,7 @@ public class GiveCommentsServlet extends HttpServlet {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload fileUpload = new ServletFileUpload(factory);
 
-        fileUpload.setFileSizeMax(3 * 1024 * 1024);
+        fileUpload.setFileSizeMax(10 * 1024 * 1024);
 
         try {
             List<FileItem> list = fileUpload.parseRequest(request);

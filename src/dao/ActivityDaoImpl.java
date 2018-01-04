@@ -196,6 +196,7 @@ public class ActivityDaoImpl implements ActivityDao {
                 map.put(userName, userPosition);
             }
         }
+        dbUtil.closeDBResource(connection, preparedStatement, resultSet);
         return map;
     }
 
@@ -211,6 +212,7 @@ public class ActivityDaoImpl implements ActivityDao {
         preparedStatement.setString(4, timeStamp);
         int result = preparedStatement.executeUpdate();
         if (urls.size() == 0) {
+            dbUtil.closeDBResource(connection, preparedStatement);
             return result;
         }
         String sql2 = "SELECT update_id FROM updates WHERE user_name = ? AND activity_id = ? AND date_time = ?";
@@ -231,6 +233,7 @@ public class ActivityDaoImpl implements ActivityDao {
             preparedStatement.setString(2, url);
             result *= preparedStatement.executeUpdate();
         }
+        dbUtil.closeDBResource(connection, preparedStatement, resultSet);
         return result;
     }
 
@@ -305,6 +308,7 @@ public class ActivityDaoImpl implements ActivityDao {
             }
             lastID = currentID;
         }
+        dbUtil.closeDBResource(connection, preparedStatement, resultSet);
         return commentBeans;
     }
 }
