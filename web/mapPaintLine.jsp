@@ -252,9 +252,9 @@
             var pointsBD = [];
             for (var i = 0; i < points.length; i++) {
                 pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
-                allPoints.push(new BMap.Point(points[i][0], points[i][1]));
             }
             pointsBD = GpsToBaiduPoints(pointsBD);
+            allPoints = allPoints.concat(pointsBD);
 
             var polyline = new BMap.Polyline(pointsBD, {
                 enableEditing: false,//是否启用线编辑，默认为false
@@ -292,7 +292,7 @@
 
             map.addOverlay(polyline);          //增加折线
         }
-        if (isSetzoom === 50000) {
+        if (isSetzoom === 8) {
             setZoom(allPoints);
             console.log('setzoom');
             isSetzoom = 0;
@@ -350,7 +350,7 @@
 
 
     var allPoints = [];
-    var isSetzoom = 5;
+    var isSetzoom = 8;
     var map = new BMap.Map("container");
     map.centerAndZoom(new BMap.Point(103.388611, 35.563611), 5); //初始显示中国。
     map.enableScrollWheelZoom();//滚轮放大缩小

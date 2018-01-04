@@ -248,10 +248,9 @@
             var pointsBD = [];
             for (var i = 0; i < points.length; i++) {
                 pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
-                allPoints.push(new BMap.Point(points[i][0], points[i][1]));
             }
             pointsBD = GpsToBaiduPoints(pointsBD);
-
+            allPoints = allPoints.concat(pointsBD);
             var polyline = new BMap.Polyline(pointsBD, {
                 enableEditing: false,//是否启用线编辑，默认为false
                 enableClicking: true,//是否响应点击事件，默认为true
