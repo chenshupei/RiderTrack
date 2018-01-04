@@ -40,9 +40,4 @@ public class ShowDetailServlet extends HttpServlet {
         request.setAttribute("activity_detail_sponsor", activityBean.getSponsor());
         request.getRequestDispatcher("details.jsp").forward(request, response);
     }
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
 }

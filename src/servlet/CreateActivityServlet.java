@@ -40,15 +40,7 @@ public class CreateActivityServlet extends HttpServlet {
         endDate = request.getParameter("endDate");
         description = request.getParameter("description");
         type = request.getParameter("type");
-        sponsor = (String)request.getSession().getAttribute("username");
-
-
-        System.out.println(activityName);
-        System.out.println(location);
-        System.out.println(startDate);
-        System.out.println(endDate);
-        System.out.println(description);
-        System.out.println(type);
+        sponsor = (String) request.getSession().getAttribute("username");
 
         if (sponsor == null || sponsor == "") {
             request.setAttribute("msg_submit", "Please log in first.");

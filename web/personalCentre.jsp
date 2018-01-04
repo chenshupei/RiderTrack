@@ -23,7 +23,7 @@
 
 <body>
 <%
-    String username = (String)session.getAttribute("username");
+    String username = (String) session.getAttribute("username");
     String name = (String) session.getAttribute("name");
 %>
 
@@ -34,17 +34,17 @@
             <%
                 if (session.getAttribute("name") == null || session.getAttribute("name").equals("")) {
             %>
-                <a href="IconLoginServlet"  style="text-align:right">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    Log in
-                </a>
+            <a href="IconLoginServlet" style="text-align:right">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                Log in
+            </a>
             <%
-                } else {
+            } else {
             %>
-                <a href="PersonalCentreServlet">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <%=name%>
-                </a>
+            <a href="PersonalCentreServlet">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <%=name%>
+            </a>
             <%
                 }
             %>
@@ -79,20 +79,23 @@
                     <img class="img-circle" src="img/sampleHeadshot.jpg"/>
                 </div>
                 <div class="col-md-8">
-                    <h1> <%=request.getAttribute("name") != null ? request.getAttribute("name") : ""%></h1>  <!--当前用户name-->
+                    <h1><%=request.getAttribute("name") != null ? request.getAttribute("name") : ""%>
+                    </h1>  <!--当前用户name-->
                     <table class="table table-hover">
                         <tbody>
                         <tr>
                             <th scope="row">
                                 User name
                             </th>
-                            <td><%=username != null ? username : ""%></td>  <!--当前用户username-->
+                            <td><%=username != null ? username : ""%>
+                            </td>  <!--当前用户username-->
                         </tr>
                         <tr>
                             <th scope="row">
                                 Email address
                             </th>
-                            <td><%=request.getAttribute("email_address") != null ? request.getAttribute("email_address") : ""%></td>  <!--当前用户email address-->
+                            <td><%=request.getAttribute("email_address") != null ? request.getAttribute("email_address") : ""%>
+                            </td>  <!--当前用户email address-->
                         </tr>
                         <tr>
                             <th scope="row">Introduce</th> <!--待定-->

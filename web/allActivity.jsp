@@ -25,7 +25,7 @@
 </head>
 <body>
 <%
-    String username = (String)session.getAttribute("username");
+    String username = (String) session.getAttribute("username");
     String name = (String) session.getAttribute("name");
 %>
 <div class="container">
@@ -36,7 +36,7 @@
             <%
                 if (session.getAttribute("name") == null || session.getAttribute("name").equals("")) {
             %>
-            <a href="IconLoginServlet"  style="text-align:right">
+            <a href="IconLoginServlet" style="text-align:right">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 Log in
             </a>
@@ -79,7 +79,7 @@
                         List<ActivityBean> activityBeanList = null;
                         if (request.getAttribute("activityList") != null) {
                             activityBeanList = (List<ActivityBean>) request.getAttribute("activityList");
-                        }else {
+                        } else {
                             ActivityService activityService = new ActivityServiceImpl();
                             activityBeanList = activityService.fetchActivityList();
                         }

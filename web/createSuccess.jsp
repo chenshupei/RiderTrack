@@ -67,7 +67,7 @@
     <div class="jumbotron">
         <h1>Success!</h1>
         <p>Your activity have been created successfully.</p>
-        <p><a class="btn btn-primary btn-lg" href="details.jsp" role="button">Go to the page</a></p> <!--链接到该活动的details页面-->
+        <p><a class="btn btn-primary btn-lg" href="allActivity.jsp" role="button">Go to the page</a></p> <!--链接到该活动的details页面-->
     </div>
 
 

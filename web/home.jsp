@@ -21,11 +21,11 @@
     <link href="css/rider-track-stylesheet.css" rel="stylesheet">
 </head>
 <body>
-    <%
-        String username = (String)session.getAttribute("username");
-        String name = (String) session.getAttribute("name");
+<%
+    String username = (String) session.getAttribute("username");
+    String name = (String) session.getAttribute("name");
 //        session.setAttribute("username", username);
-    %>
+%>
 <div class="container">
 
     <div class="row topdiv">
@@ -35,7 +35,7 @@
                 if (session.getAttribute("name") == null || session.getAttribute("name").equals("")) {
                     session.setAttribute("login_state", "false");
             %>
-            <a href="IconLoginServlet"  style="text-align:right">
+            <a href="IconLoginServlet" style="text-align:right">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 Log in
             </a>
@@ -85,28 +85,38 @@
                     <div class="modal-body">
                         <form class="form-signin" action="LoginServlet" method="get">
                             <label for="inputUsername" class="sr-only">User name</label>
-                            <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" value="<%=request.getAttribute("username") != null ? request.getAttribute("username") : "" %>" required autofocus/>
+                            <input type="text" id="inputUsername" class="form-control" placeholder="Username"
+                                   name="username"
+                                   value="<%=request.getAttribute("username") != null ? request.getAttribute("username") : "" %>"
+                                   required autofocus/>
 
                             <label for="inputPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : "" %>" required/>
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Password"
+                                   name="password"
+                                   value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : "" %>"
+                                   required/>
 
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                             <%
                                 if (request.getAttribute("msg") != null) {
-                                if (request.getAttribute("msg") == "Register is success, please login to the system") {
+                                    if (request.getAttribute("msg") == "Register is success, please login to the system") {
                             %>
-                                    <div class="alert alert-success" role="alert"><%=request.getAttribute("msg")%></div>
+                            <div class="alert alert-success" role="alert"><%=request.getAttribute("msg")%>
+                            </div>
 
-                                <%
+                            <%
 
-                                    } else {
-                                %>
-                                    <div class="alert alert-danger" role="alert"><%=request.getAttribute("msg")%></div>
+                            } else {
+                            %>
+                            <div class="alert alert-danger" role="alert"><%=request.getAttribute("msg")%>
+                            </div>
 
-                                <%
-                                    }}
-                                %>
-                            <p align="right">or you can <a data-dismiss="modal" aria-hidden="true" data-toggle="modal" data-target="#SignupModal">sign up</a></p>
+                            <%
+                                    }
+                                }
+                            %>
+                            <p align="right">or you can <a data-dismiss="modal" aria-hidden="true" data-toggle="modal"
+                                                           data-target="#SignupModal">sign up</a></p>
                         </form>
                     </div>
                 </div>
@@ -130,24 +140,33 @@
                             <%--<input type="email" id="inputEmail2" class="form-control" placeholder="E-mail"  required autofocus>--%>
 
                             <label for="inputUsername2" class="sr-only">Username</label>
-                                <input type="text" id="inputUsername2" class="form-control" placeholder="User name" name="username"
-                                    value="<%=request.getAttribute("username") != null ? request.getAttribute("username") : ""%>" required autofocus>
+                            <input type="text" id="inputUsername2" class="form-control" placeholder="User name"
+                                   name="username"
+                                   value="<%=request.getAttribute("username") != null ? request.getAttribute("username") : ""%>"
+                                   required autofocus>
 
                             <label for="inputUsername2" class="sr-only">Name</label>
-                                <input type="text" id="inputUsername2" class="form-control" placeholder="Real name" name="name"
-                                    value="<%=request.getAttribute("name") != null ? request.getAttribute("name") : ""%>" required autofocus>
+                            <input type="text" id="inputUsername2" class="form-control" placeholder="Real name"
+                                   name="name"
+                                   value="<%=request.getAttribute("name") != null ? request.getAttribute("name") : ""%>"
+                                   required autofocus>
 
                             <label for="inputPassword" class="sr-only">Password</label>
-                                <input type="password" id="inputPassword2" class="form-control" placeholder="Password" name="password"
-                                   value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : ""%>" required autofocus>
+                            <input type="password" id="inputPassword2" class="form-control" placeholder="Password"
+                                   name="password"
+                                   value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : ""%>"
+                                   required autofocus>
 
-                                <input type="password" id="inputPassword2r" class="form-control" placeholder="Confirm password" name="con_password"
-                                   value="<%=request.getAttribute("con_password") != null ? request.getAttribute("con_password") : ""%>" required>
+                            <input type="password" id="inputPassword2r" class="form-control"
+                                   placeholder="Confirm password" name="con_password"
+                                   value="<%=request.getAttribute("con_password") != null ? request.getAttribute("con_password") : ""%>"
+                                   required>
                             <%if (request.getAttribute("msg_con_password") != null && !request.getAttribute("msg_con_password").equals("")) { %>
 
-                                <div class="alert alert-success" role="alert"><%=request.getAttribute("msg_con_password")%></div>
-                                <%
-                                    }
+                            <div class="alert alert-success" role="alert"><%=request.getAttribute("msg_con_password")%>
+                            </div>
+                            <%
+                                }
                             %>
                             <!--<div class="checkbox">-->
                             <!--<label>-->
@@ -156,7 +175,9 @@
                             <!--</div>-->
 
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                            <p align="right">If you have a account, you can <a data-dismiss="modal" aria-hidden="true" data-toggle="modal" data-target="#LoginModal">Log in</a></p>
+                            <p align="right">If you have a account, you can <a data-dismiss="modal" aria-hidden="true"
+                                                                               data-toggle="modal"
+                                                                               data-target="#LoginModal">Log in</a></p>
                         </form>
                     </div>
                 </div>
@@ -168,15 +189,15 @@
         <%
             if (username == null || username.equals("")) {
         %>
-            <div class="jumbotron">
-                <h1>Rider Track</h1>
-                <p class="lead">Ride Track is an online application that can allow multiple users to share their location
-                    and track at the same time. It would make your activity more attractive!</p>
-                <p><a class="btn btn-lg btn-success" href="#" role="button" data-toggle="modal" data-target="#LoginModal">
-                    Get started now!</a></p>
-            </div>
+        <div class="jumbotron">
+            <h1>Rider Track</h1>
+            <p class="lead">Ride Track is an online application that can allow multiple users to share their location
+                and track at the same time. It would make your activity more attractive!</p>
+            <p><a class="btn btn-lg btn-success" href="#" role="button" data-toggle="modal" data-target="#LoginModal">
+                Get started now!</a></p>
+        </div>
         <%
-            } else {
+        } else {
         %>
         <div id="myCarousel" class="carousel slide">
             <!-- 轮播（Carousel）指标 -->
@@ -240,14 +261,15 @@
             Contact us by QQ</a>
             &#169 2017 SUSTech OOAD Group 10.
 
-            <%=request.getAttribute("msg_welcome") != null ? request.getAttribute("msg_welcome") : ""%></p>
+            <%=request.getAttribute("msg_welcome") != null ? request.getAttribute("msg_welcome") : ""%>
+        </p>
         <p>
             user: <%=username%>
         </p>
     </footer>
 </div>
 <%
-    if((request.getAttribute("msg_hide") != null) && (request.getAttribute("msg_hide").equals("show")) || (session.getAttribute("msg_hide") != null) && (session.getAttribute("msg_hide").equals("show"))){
+    if ((request.getAttribute("msg_hide") != null) && (request.getAttribute("msg_hide").equals("show")) || (session.getAttribute("msg_hide") != null) && (session.getAttribute("msg_hide").equals("show"))) {
         session.setAttribute("msg_hide", "hide");
 %>
 <script type="text/javascript">

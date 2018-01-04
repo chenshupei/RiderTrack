@@ -118,15 +118,19 @@
                         <%
                             if (register) {
                         %>
-                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onDeregister()">Deregister</button>
+                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onDeregister()">
+                            Deregister
+                        </button>
                         <%
                         } else {
                         %>
-                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onJoin()">Join in</button>
+                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onJoin()">Join in
+                        </button>
                         <%
                             }
                         %>
-                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onObserve()">Observe</button>
+                        <button type="button" class="btn btn-default btn-lg btn-block" onclick="onObserve()">Observe
+                        </button>
                     </div>
                 </div>
             </div>
@@ -169,7 +173,7 @@
     function onJoin() {
         var username = "<%=username%>";
         console.log(username);
-        if (username === "null"){
+        if (username === "null") {
             alert("Please log in first :-)");
             return;
         }

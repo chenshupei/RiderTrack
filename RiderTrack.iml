@@ -84,5 +84,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="convertor" level="application" />
   </component>
 </module>

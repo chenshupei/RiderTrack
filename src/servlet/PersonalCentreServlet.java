@@ -20,7 +20,6 @@ public class PersonalCentreServlet extends HttpServlet {
     }
 
     @Override
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = (String)request.getSession().getAttribute("username");
         System.out.println(userName);
@@ -30,10 +29,5 @@ public class PersonalCentreServlet extends HttpServlet {
         request.setAttribute("name", userinfoBean.getName());
         request.setAttribute("email_address", userinfoBean.getEmail());
         request.getRequestDispatcher("personalCentre.jsp").forward(request, response);
-    }
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
     }
 }

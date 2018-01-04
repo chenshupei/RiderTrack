@@ -175,7 +175,7 @@ public class ActivityDaoImpl implements ActivityDao {
         String sql;
         connection = dbUtil.getConnection();
         if (!lastUpdate.equals("1000-00-00 00:00:00")) {
-            sql = "SELECT u.user_name, email_address, name, l1.x, l1.y FROM location l1 LEFT JOIN location l2 ON l1.user_name = l2.user_name AND l1.date_time < l2.date_time JOIN user_info u ON l1.user_name = u.user_name WHERE l1.activity_id = ? GROUP BY l1.user_name, l1.date_time HAVING count(l2.date_time) < 2 ORDER BY l1.date_time";
+            sql = "SELECT u.user_name, email_address, name, l1.x, l1.y FROM location l1 LEFT JOIN location l2 ON l1.user_name = l2.user_name AND l1.date_time < l2.date_time JOIN user_info u ON l1.user_name = u.user_name WHERE l1.activity_id = ? GROUP BY l1.user_name, l1.date_time HAVING count(l2.date_time) < 4 ORDER BY l1.date_time";
         } else {
             sql = "SELECT l.user_name, email_address, name, x, y FROM location l JOIN user_info u ON l.user_name = u.user_name WHERE activity_id = ?";
         }

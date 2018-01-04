@@ -36,62 +36,53 @@ public class RegisterServlet extends HttpServlet {
         name = request.getParameter("name");
         password = request.getParameter("password");
         conPassword = request.getParameter("con_password");
-        if((username == null||username.equals(""))&&(password==null||password.equals(""))){
+        if ((username == null || username.equals("")) && (password == null || password.equals(""))) {
             request.setAttribute("msg_username", "user name shouldn't be none");
             request.setAttribute("msg_password", "password shouldn't be none");
             request.getRequestDispatcher("login3.jsp").forward(request, response);
-            System.out.println(1);
-        }else if(username==null||username.equals("")){
+        } else if (username == null || username.equals("")) {
             request.setAttribute("password", password);
             request.setAttribute("msg_username", "user name shouldn't be none");
             request.getRequestDispatcher("login3.jsp").forward(request, response);
-            System.out.println(2);
-        }else if(password==null||password.equals("")){
+        } else if (password == null || password.equals("")) {
             request.setAttribute("username", username);
             request.setAttribute("msg_password", "password shouldn't be none");
             request.getRequestDispatcher("login3.jsp").forward(request, response);
-            System.out.println(3);
-        }else{
-            if(conPassword==""||conPassword.equals("")){
+        } else {
+            if (conPassword == "" || conPassword.equals("")) {
                 request.setAttribute("username", username);
                 request.setAttribute("password", password);
                 request.setAttribute("msg_con_password", "Please confirm password");
                 request.getRequestDispatcher("login3.jsp").forward(request, response);
-                System.out.println(4);
-            }else{
+            } else {
 
-                if(!conPassword.equals(password)){
+                if (!conPassword.equals(password)) {
                     request.setAttribute("password", password);
                     request.setAttribute("username", username);
                     request.setAttribute("msg", "Two password is not same");
                     request.setAttribute("con_password", "");
                     request.setAttribute("msg_hide", "show");
                     request.getRequestDispatcher("home.jsp").forward(request, response);
-                }else{
+                } else {
                     System.out.println("Success");
-                    UserinfoService userinfoService=new UserinfoServiceImpl();
-                    UserinfoBean userinfoBean=new UserinfoBean();
+                    UserinfoService userinfoService = new UserinfoServiceImpl();
+                    UserinfoBean userinfoBean = new UserinfoBean();
                     userinfoBean.setUsername(username);
                     userinfoBean.setName(name);
                     userinfoBean.setPassword(password);
                     request.setAttribute("msg_hide", "show");
-                    int result=userinfoService.registerUserinfo(userinfoBean);
-                    System.out.println("In servlet"+result);
-                    if(result==1){
+                    int result = userinfoService.registerUserinfo(userinfoBean);
+                    if (result == 1) {
                         request.setAttribute("msg", "Register is success, please login to the system");
                         request.setAttribute("username", username);
                         request.getRequestDispatcher("home.jsp").forward(request, response);
-//                        response.sendRedirect("home.jsp");
-                    }else{
+                    } else {
                         request.setAttribute("msg", "Register is failed");
                         request.setAttribute("msg_hide", "show");
                         request.getRequestDispatcher("home.jsp").forward(request, response);
                     }
-
                 }
             }
         }
-
     }
-
 }

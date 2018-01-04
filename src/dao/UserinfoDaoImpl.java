@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import bean.UserinfoBean;
 import util.DBUtil;
 
-public class UserinfoDaoImpl implements UserinfoDao{
+public class UserinfoDaoImpl implements UserinfoDao {
     private DBUtil dbUtil = new DBUtil();
 
 
@@ -18,7 +18,6 @@ public class UserinfoDaoImpl implements UserinfoDao{
         int result = 0;
         String sql = "select count(*) from user_info where user_name = ? and password=?";
         Connection connection = dbUtil.getConnection();
-
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, username);
         preparedStatement.setString(2, password);

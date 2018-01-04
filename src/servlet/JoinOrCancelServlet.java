@@ -20,17 +20,13 @@ public class JoinOrCancelServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
-        System.out.println("join activity servlet");
         String activityID = request.getParameter("activity_id");
         String username = request.getParameter("username");
         String type = request.getParameter("type");
-//        System.out.println(activityID);
-//        System.out.println(username);
 
         ActivityService activityService = new ActivityServiceImpl();
         if (type.equals("J")) {
             int result = activityService.userJoinActivity(username, Integer.parseInt(activityID));
-            System.out.println("servlet: " + result);
             out.print(result + "J");
             out.flush();
         } else {
@@ -38,8 +34,5 @@ public class JoinOrCancelServlet extends HttpServlet {
             out.print(result + "D");
             out.flush();
         }
-//        request.getRequestDispatcher("allActivity.jsp").forward(request, response);
-//        System.out.println("finish");
     }
-
 }

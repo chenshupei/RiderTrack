@@ -33,11 +33,10 @@ public class GiveCommentsServlet extends HttpServlet {
         String username = (String) request.getSession().getAttribute("username");
         System.out.println("activityID: " + activity_id);
         ActivityService activityService = new ActivityServiceImpl();
-        int result = 0;
 
+        int result = 0;
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload fileUpload = new ServletFileUpload(factory);
-
         fileUpload.setFileSizeMax(10 * 1024 * 1024);
 
         try {

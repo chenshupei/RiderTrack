@@ -3,6 +3,7 @@
 <head>
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
+    <script type="text/javascript" src="js/pointtransfertools.js"></script>
     <link href="css/my-css.css" rel="stylesheet">
     <link href="css/map.css" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
@@ -24,18 +25,18 @@
             margin: 20px;
         }
 
-        p{
-            word-break:break-all;
+        p {
+            word-break: break-all;
         }
 
-        .comment-pic{
-            margin-left:50px;
+        .comment-pic {
+            margin-left: 50px;
             max-height: 150px;
         }
     </style>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/map.css" rel="stylesheet">
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=YWdGplhYjUGQ3GtpKNeuTM2S"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=YWdGplhYjUGQ3GtpKNeuTM2S"></script>
 </head>
 
 <body>
@@ -48,7 +49,8 @@
     <div class="container-fluid">
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                <li><a  onClick="history.back(-1);">close&nbsp;<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+                <li><a onClick="history.back(-1);">close&nbsp;<span class="glyphicon glyphicon-remove"
+                                                                    aria-hidden="true"></span></a></li>
             </ul>
         </div>
         <div class="navbar-header">
@@ -98,8 +100,11 @@
                                placeholder="What do you want to comment" name="comment"></div>
                     <span id="filename"
                           style="vertical-align: middle;font-size: small;color: #00699c;font-weight: lighter">No picture</span>
-                    <button class="btn btn-default file-button" type="button"  onclick="document.getElementById('file-input').click();">Upload picture</button>
-                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png"  onchange="loadFile(this.files[0])" id="file-input" style="display:none" name="file">
+                    <button class="btn btn-default file-button" type="button"
+                            onclick="document.getElementById('file-input').click();">Upload picture
+                    </button>
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png"
+                           onchange="loadFile(this.files[0])" id="file-input" style="display:none" name="file">
                     <button type="button" class="btn btn-primary" onclick="onSubmit()">Submit</button>
 
                 </form>
@@ -115,6 +120,7 @@
     function loadFile(file) {
         $("#filename").html(file.name);
     }
+
     function onSubmit() {
 //        $.ajax({
 //            url:"GiveCommentsServlet",//提交地址
@@ -137,8 +143,8 @@
                 url: "GiveCommentsServlet",
                 type: "post",
                 dataType: "json",
-                contentType:"application/x-www-form-urlencoded",
-                success : function (data) {
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
                     document.getElementById('comment_text').value = "";
                     $("#filename").html("No picture");
                     refresh();
@@ -180,7 +186,7 @@
             imgStr += "<img class='img-thumbnail comment-pic' src='" + commentObj.urls[i] + "'/>";
         }
         $("#table").append("<tr><td class='comment-td' align='left'><p><b>" + commentObj.myName + "</b>: " + commentObj.content +
-            "</p><span>"+imgStr+"</span><p style='text-align: right;font-size:small; color: #002a80;'>" + commentObj.datetime + "</P>");
+            "</p><span>" + imgStr + "</span><p style='text-align: right;font-size:small; color: #002a80;'>" + commentObj.datetime + "</P>");
         console.log(imgStr);
     }
 
@@ -221,56 +227,9 @@
             + seperator2 + date.getSeconds();
     }
 
-    //    function plotLines(json) {
-    //        for (var k in json) {
-    //            console.log(json[k].username);
-    //            var name = json[k].username;
-    //            if (uName.indexOf(name) === -1) {
-    //                uName.push(name);
-    //                clName.push(getRandomColor());
-    //                markers.push(null);
-    //            }
-    //            var points = json[k].positions;
-    //            var pointsBD = [];
-    //            for (var i = 0; i < points.length; i++) {
-    //                pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
-    //                allPoints.push(new BMap.Point(points[i][0], points[i][1]));
-    //            }
-    //
-    //            var polyline = new BMap.Polyline(pointsBD, {
-    //                enableEditing: false,//是否启用线编辑，默认为false
-    //                enableClicking: true,//是否响应点击事件，默认为true
-    //                strokeWeight: '2',//折线的宽度，以像素为单位
-    //                strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
-    //                strokeColor: clName[uName.indexOf(name)] //折线颜色
-    //            });
-    //
-    //            if (markers[uName.indexOf(name)] === null) {
-    //                markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
-    //                map.addOverlay(markers[uName.indexOf(name)]);
-    //                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
-    //            } else {
-    //                markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
-    //                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
-    //            }
-    //
-    //            map.addOverlay(polyline);          //增加折线
-    //        }
-    //
-    //        if (isSetzoom === 5) {
-    //            setZoom(allPoints);
-    //            console.log('setzoom');
-    //            isSetzoom = 0;
-    //        }
-    //        isSetzoom++;
-    //
-    //    }
 
     function plotLines(json) {
-//        console.log(json);
-        var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(250, 120));
         for (var k in json) {
-//            console.log(json[k].username);
             var name = json[k].username;
             var myname = json[k].name;
             if (uName.indexOf(name) === -1) {
@@ -285,16 +244,13 @@
                 var content = "email:" + json[k].email;
                 infoWindows.push(new BMap.InfoWindow(content, opts));
             }
-
-//            var infoWindow = new BMap.InfoWindow(name + json[k].email);  // 创建信息窗口对象
-//            var inforWindow = new BMap.InfoWindow("<h4 style='margin:0 0 5px 0;padding:0.2em 0'>天安门</h4>" + "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>地点：南方科技大学</p>" + "</div>");
-//            console.log(title);
             var points = json[k].positions;
             var pointsBD = [];
             for (var i = 0; i < points.length; i++) {
                 pointsBD.push(new BMap.Point(points[i][0], points[i][1]));
                 allPoints.push(new BMap.Point(points[i][0], points[i][1]));
             }
+            pointsBD = GpsToBaiduPoints(pointsBD);
 
             var polyline = new BMap.Polyline(pointsBD, {
                 enableEditing: false,//是否启用线编辑，默认为false
@@ -303,21 +259,6 @@
                 strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
                 strokeColor: clName[uName.indexOf(name)] //折线颜色
             });
-
-//            if (markers[uName.indexOf(name)] === null) {
-//                markers[uName.indexOf(name)] = new BMap.Marker(pointsBD[pointsBD.length - 1]);
-//                map.addOverlay(markers[uName.indexOf(name)]);
-////                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
-//                markers[uName.indexOf(name)].addEventListener("click", function () {
-////                    console.log(name + "   " + title);
-////                    console.log(markers);
-//                    this.openInfoWindow(infoWindows[markers.indexOf(this)]); //开启信息窗口
-//                });
-//            } else {
-//                markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
-////                markers[uName.indexOf(name)].setAnimation(BMAP_ANIMATION_BOUNCE);
-////                map.addOverlay(markers[uName.indexOf(name)]);
-//            }
 
             if (markers[uName.indexOf(name)] === null) {
                 <%--console.log(name === "<%=current_username%>");--%>
@@ -336,10 +277,8 @@
                     });
                 }
             } else {
-                <%--console.log(name === "<%=current_username%>");--%>
                 if (name === "<%=current_username%>") {
                     markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
-                    map.addOverlay(markers[uName.indexOf(name)]);
                 } else {
                     markers[uName.indexOf(name)].setPosition(pointsBD[pointsBD.length - 1]);
                 }
@@ -347,7 +286,7 @@
 
             map.addOverlay(polyline);          //增加折线
         }
-        if (isSetzoom === 5) {
+        if (isSetzoom === 50000) {
             setZoom(allPoints);
             console.log('setzoom');
             isSetzoom = 0;
@@ -356,9 +295,6 @@
 
     }
 
-
-    //根据点信息实时更新地图显示范围，让轨迹完整显示。设置新的中心点和显示级别.
-    //更新。设置不是每次增加点都重新设置显示范围。因为有可能会想放大了看。
     function setZoom(bPoints) {
         var view = map.getViewport(eval(bPoints));
         var mapZoom = view.zoom;
@@ -369,8 +305,26 @@
 
 
     function location1() {
+        getLocation();
+
         uploadLocation();
-        setTimeout(location1, 2000);
+
+        setTimeout(location1, 5000);
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+        else {
+
+        }
+    }
+
+    function showPosition(position) {
+        y = position.coords.latitude;
+        x = position.coords.longitude;
+        console.log(x + ',' + y);
     }
 
 

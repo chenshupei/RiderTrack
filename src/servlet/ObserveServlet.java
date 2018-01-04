@@ -26,8 +26,4 @@ public class ObserveServlet extends HttpServlet {
         out.print(result);
         out.flush();
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }
