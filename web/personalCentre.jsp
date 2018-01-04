@@ -66,14 +66,8 @@
     </div>
     <br/>
 
-    <!--Personal Centre 页面-->
     <div class="tab-pane" id="PersonalCentre">
         <div class="panel panel-default">
-            <!--<div class="panel-heading">-->
-            <!--<h3 class="panel-title">-->
-            <!--Personal Centre-->
-            <!--</h3>-->
-            <!--</div>-->
             <div class="row details">
                 <div class="col-md-4">
                     <img class="img-circle" src="img/sampleHeadshot.jpg"/>
